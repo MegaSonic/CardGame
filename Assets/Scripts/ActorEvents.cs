@@ -2,6 +2,12 @@
 using System.Collections;
 using System;
 
+
+/// <summary>
+/// A list of Actor events.
+/// Each Actor has one of these.
+/// Used when an event needs to fire on a specific action that is actor-specific.
+/// </summary>
 public class ActorEvents : Extender {
 
 	public delegate void ActorEventHandler(Actor sender, EventArgs e);

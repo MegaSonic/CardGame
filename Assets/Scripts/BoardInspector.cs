@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEditor;
 
+/// <summary>
+/// Custom inspector for Board. Does a quick render.
+/// </summary>
 [CustomEditor(typeof(Board))]
 public class BoardInspector : Editor {
 

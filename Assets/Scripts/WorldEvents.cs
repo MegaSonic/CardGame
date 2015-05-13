@@ -2,6 +2,9 @@
 using System.Collections;
 using System;
 
+/// <summary>
+/// Events that are not actor-specific.
+/// </summary>
 public class WorldEvents : Extender {
 
 	public delegate void EventHandler(object sender, EventArgs e);

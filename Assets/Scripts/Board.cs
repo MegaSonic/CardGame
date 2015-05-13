@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Internal representation of the Board/Field.
+/// </summary>
 public class Board : Extender {
 
 	// (0,0) refers to the top left panel

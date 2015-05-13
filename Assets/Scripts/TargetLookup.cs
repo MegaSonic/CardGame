@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TargetLookup {
+/// <summary>
+/// A static class that handles all the different targetting methods for various cards.
+/// </summary>
+public static class TargetLookup {
 
 	public enum TargetType {
 		WideSword,
@@ -12,7 +15,7 @@ public class TargetLookup {
 	// This will return all actors in the area of effect
 	// If you want it to "smart cast", aka not hit player units if cast by a player
 	// You'll need another check
-	public IEnumerable<Actor> Lookup(TargetType targetType, Board field, Actor cardUser) {
+	public static IEnumerable<Actor> Lookup(TargetType targetType, Board field, Actor cardUser) {
 
 		switch (targetType) {
 
