@@ -2,8 +2,17 @@
 using System.Collections;
 using UnityEditor;
 
-public class Actor : Extender {
-	
+[System.Serializable]
+public class Actor : Extender  {
+	public HealthInfo health;
+	public StatsInfo stats;
+	public BoardLocation boardLocation;
+}
+
+[System.Serializable]
+public class BoardLocation {
+	public int x;
+	public int y;
 }
 
 [System.Serializable]

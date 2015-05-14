@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Player : Actor {
 
+	public PlayerType playerType;
+	public PlayerJob playerJob;
+
+
 	public enum PlayerType {
 		Warrior = 1,
 		Mage = 2,
@@ -10,8 +14,9 @@ public class Player : Actor {
 	}
 
 
-	// Note: give each enum a value. Otherwise, if we decide to rearrange enums or remove them, the inspector value will break.
-	public enum PlayerClass {
+	// Note: give each enum a value. Otherwise, if we decide to rearrange enums or remove them, 
+	// the inspector value will break.
+	public enum PlayerJob {
 		Warrior = 1,
 		Mage = 2,
 		Thief = 3,
