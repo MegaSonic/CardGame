@@ -7,9 +7,10 @@ using System.Collections.Generic;
 /// </summary>
 public static class TargetLookup {
 
+	// Note: give each enum a value. Otherwise, if we decide to rearrange enums or remove them, the inspector value will break.
 	public enum TargetType {
-		WideSword,
-		LongSword
+		WideSword = 1,
+		LongSword = 2
 	}
 
 	// This will return all actors in the area of effect
