@@ -60,6 +60,8 @@ public class StatsInfo {
 
 	[Range(1, 99)]
 	public int speed;
+
+	public int move;
 }
 
 
