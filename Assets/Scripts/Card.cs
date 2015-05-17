@@ -37,6 +37,15 @@ public class Card : Extender {
 	/// </summary>
 	public int manaCost;
 
+	/// <summary>
+	/// The rules text on this card.
+	/// </summary>
+	public string cardText;
+
+	/// <summary>
+	/// A list of what keywords this card uses.
+	/// Note: Will have to write custom inspectors for keywords that need extra rules.
+	/// </summary>
 	public List<Keyword> cardKeywords;
 	
 	/// <summary>
@@ -44,7 +53,11 @@ public class Card : Extender {
 	/// </summary>
 	public List<CardAction> cardActions;
 
-
+	/// <summary>
+	/// A hidden object that can be used to store a list of targets from one action to another.
+	/// </summary>
+	[HideInInspector]
+	public List<Actor> storeTargets;
 
 	// Use this for initialization
 	void Start () {
@@ -74,6 +87,17 @@ public class Card : Extender {
 
 	[System.Serializable]
 	public class CardAction {
+
+		/// <summary>
+		/// Should this action use the actors in storeTargets instead of recalculating who to target?
+		/// Note: if this is true, targetID is unused.
+		/// </summary>
+		public bool useStoreTargets;
+
+		/// <summary>
+		/// Should this action store its targets for later?
+		/// </summary>
+		public bool storeTargets;
 
 		/// <summary>
 		/// The target ID type.
