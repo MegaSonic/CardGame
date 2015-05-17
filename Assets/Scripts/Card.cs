@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using System.Collections.Generic;
 
 public class Card : Extender {
 
@@ -11,6 +12,14 @@ public class Card : Extender {
 	public enum DamageSource {
 		Physical,
 		Magical
+	}
+
+	public enum Keyword
+	{
+		Taunt = 1,
+		Shroud = 2,
+		Overload = 3
+
 	}
 
 	/// <summary>
@@ -28,24 +37,13 @@ public class Card : Extender {
 	/// </summary>
 	public int manaCost;
 
-
-
-	/// <summary>
-	/// The target ID type.
-	/// </summary>
-	public TargetLookup.TargetType targetID;
-
-	/// <summary>
-	/// Whether or not this card should display its potency.
-	/// </summary>
-	[HideInInspector]
-	public bool displayPotency;
+	public List<Keyword> cardKeywords;
 	
 	/// <summary>
-	/// Info about potency. Serialized so it can be expanded/collapsed in the inspector.
+	/// List of Card Actions that the Card does, in order.
 	/// </summary>
-	[HideInInspector]
-	public PotencyInfo potencyInfo;
+	public List<CardAction> cardActions;
+
 
 
 	// Use this for initialization
@@ -73,8 +71,35 @@ public class Card : Extender {
 
 
 	}
+
+	[System.Serializable]
+	public class CardAction {
+
+		/// <summary>
+		/// The target ID type.
+		/// </summary>
+		public TargetLookup.TargetType targetID;
+
+		/// <summary>
+		/// Whether or not this card should use a damage calculation in its attack.
+		/// </summary>
+		public bool usePotency;
+
+		/// <summary>
+		/// Info about potency. Serialized so it can be expanded/collapsed in the inspector.
+		/// </summary>
+		public PotencyInfo potencyInfo;
+
+		/// <summary>
+		/// Should this action also apply an effect to the targets?
+		/// </summary>
+		public EffectLookup.EffectType effectID;
+
+
+	}
 }
 
+/*
 [CustomEditor( typeof(Card) )]
 public class CardInspector : Editor
 {
@@ -83,14 +108,16 @@ public class CardInspector : Editor
 		base.OnInspectorGUI ();
 
 		Card card = (Card)target;
-		
-		card.displayPotency = EditorGUILayout.Toggle("Potency?", card.displayPotency);
-		if (card.displayPotency)
-		{
-			EditorGUILayout.BeginVertical();
-			EditorGUILayout.IntField("Potency", card.potencyInfo.potency);
-			EditorGUILayout.EnumPopup("Potency Stat", card.potencyInfo.potencyStat);
-			EditorGUILayout.EndVertical();
+
+		foreach (Card.CardAction c in card.cardActions) {
+			c.displayPotency = EditorGUILayout.Toggle ("Potency?", c.displayPotency);
+			if (c.displayPotency) {
+				EditorGUILayout.BeginVertical ();
+				EditorGUILayout.IntField ("Potency", c.potencyInfo.potency);
+				EditorGUILayout.EnumPopup ("Potency Stat", c.potencyInfo.potencyStat);
+				EditorGUILayout.EndVertical ();
+			}
 		}
 	}
 }
+*/

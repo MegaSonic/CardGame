@@ -346,11 +346,26 @@ MonoBehaviour:
   cardID: 0
   cardName: 
   manaCost: 0
-  targetID: 1
-  displayPotency: 1
-  potencyInfo:
-    potency: 0
-    potencyStat: 0
+  cardKeywords: 
+  cardActions:
+  - targetID: 0
+    usePotency: 0
+    potencyInfo:
+      potency: 0
+      potencyStat: 0
+    effectID: 0
+  - targetID: 0
+    usePotency: 0
+    potencyInfo:
+      potency: 0
+      potencyStat: 0
+    effectID: 0
+  - targetID: 0
+    usePotency: 0
+    potencyInfo:
+      potency: 0
+      potencyStat: 0
+    effectID: 0
 --- !u!4 &1343655944
 Transform:
   m_ObjectHideFlags: 0
