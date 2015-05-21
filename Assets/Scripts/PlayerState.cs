@@ -8,10 +8,10 @@ public class PlayerState : Extender {
 
 	void Start() {
 		playerList = new List<PlayerStateInfo> ();
-		// SetUpTest ();
-		playerList.Add (new PlayerStateInfo ());
-		playerList.Add (new PlayerStateInfo ());
-		playerList.Add (new PlayerStateInfo ());
+		SetUpTest ();
+		//playerList.Add (new PlayerStateInfo ());
+		//playerList.Add (new PlayerStateInfo ());
+		//playerList.Add (new PlayerStateInfo ());
 	}
 
 
@@ -26,6 +26,7 @@ public class PlayerState : Extender {
 		player1.health.CurrentHealth = 100;
 		player1.health.MaxHealth = 100;
 
+		player1.actorName = "player 1";
 		player1.playerType = Player.PlayerType.Warrior;
 		player1.playerJob = Player.PlayerJob.Warrior;
 
@@ -41,7 +42,8 @@ public class PlayerState : Extender {
 		
 		player2.health.CurrentHealth = 80;
 		player2.health.MaxHealth = 80;
-		
+
+		player2.actorName = "player 2";
 		player2.playerType = Player.PlayerType.Thief;
 		player2.playerJob = Player.PlayerJob.Thief;
 		
@@ -57,7 +59,8 @@ public class PlayerState : Extender {
 		
 		player3.health.CurrentHealth = 80;
 		player3.health.MaxHealth = 80;
-		
+
+		player3.actorName = "player 3";
 		player3.playerType = Player.PlayerType.Mage;
 		player3.playerJob = Player.PlayerJob.Mage;
 		
@@ -78,4 +81,13 @@ public class PlayerStateInfo
 	public BoardLocation location;
 	public HealthInfo health;
 	public StatsInfo stats;
+	public string actorName;
+
+	public PlayerStateInfo()
+	{
+		location = new BoardLocation();
+		health = new HealthInfo ();
+		stats = new StatsInfo ();
+	}
+
 }

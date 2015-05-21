@@ -7,6 +7,7 @@ public class Actor : Extender  {
 	public HealthInfo health;
 	public StatsInfo stats;
 	public BoardLocation boardLocation;
+	public string actorName;
 }
 
 [System.Serializable]
