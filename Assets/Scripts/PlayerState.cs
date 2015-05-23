@@ -33,7 +33,7 @@ public class PlayerState : Extender {
 		player1.stats.strength = 20;
 		player1.stats.magic = 5;
 		player1.stats.speed = 10;
-
+		
 		playerList.Add (player1);
 
 		PlayerStateInfo player2 = new PlayerStateInfo ();

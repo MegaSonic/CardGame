@@ -36,6 +36,7 @@ public class TurnOrderDisplay : MonoBehaviour {
 	void ClearDisplay()
 	{
 		txt.text = "";
+
 	}
 
 	/// <summary>
