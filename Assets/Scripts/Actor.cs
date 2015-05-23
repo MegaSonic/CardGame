@@ -9,8 +9,11 @@ public class Actor : Extender  {
 	public BoardLocation boardLocation;
 	public string actorName;
 
+	private World world;
+
 	public void EndTurn(Actor sender) {
 		Debug.Log ("Clicked?");
+		world.changeTurns();
 	}
 
 	public void onClickEndTurn() {
@@ -23,6 +26,8 @@ public class Actor : Extender  {
 
 		EndsTurn += new ActorEventHandler (EndTurn);
 
+		GameObject tmp = GameObject.Find ("World");
+		world = ExtensionMethods.GetSafeComponent<World>(tmp);
 	}
 
 	

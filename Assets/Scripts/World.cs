@@ -16,11 +16,20 @@ public class World : MonoBehaviour {
 	/// </summary>
 	private List<int> turnOrder;
 
+	/// <summary>
+	/// The index in turnOrder of who has the current turn.
+	/// </summary>
+	private int currentTurnIndex;
+
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
 	void Start () {
 		GameObject tmp = GameObject.Find ("PlayerState");
 		ps = ExtensionMethods.GetSafeComponent<PlayerState>(tmp);
 
 		determineTurnOrder ();
+		currentTurnIndex = 0;
 	}
 
 	/// <summary>
@@ -62,16 +71,33 @@ public class World : MonoBehaviour {
 		return turnOrder;
 	}
 
+	/// <summary>
+	/// Gets the index in the playerList of who has the current turn.
+	/// </summary>
+	/// <returns>The current turn.</returns>
+	public int getCurrentTurn(){
+		return turnOrder[currentTurnIndex];
+	}
 
-	// Update is called once per frame
-	void Update () {
-	
+	/// <summary>
+	/// Changes the turn.
+	/// </summary>
+	public void changeTurns(){
+		currentTurnIndex++;
+		if (currentTurnIndex >= turnOrder.Count)
+			currentTurnIndex = 0;
+	}
+
+	/// <summary>
+	/// Update this instance.
+	/// </summary>
+	void Update () {	
+
+		// re-initialize if the playerList has changed
 		if (ps != null) {
 			if (ps.playerList.Count != psState)
 				determineTurnOrder();
 		}
-
-
 	}
 }
 
