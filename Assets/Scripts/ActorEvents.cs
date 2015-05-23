@@ -10,7 +10,7 @@ using System;
 /// </summary>
 public class ActorEvents : Extender {
 
-	public delegate void ActorEventHandler(Actor sender, EventArgs e);
+	public delegate void ActorEventHandler(Actor sender);
 	
 	/// <summary>
 	/// Occurs when this actor draws a card.
@@ -61,5 +61,5 @@ public class ActorEvents : Extender {
 	/// Occurs when this actor moves.
 	/// </summary>
 	public event ActorEventHandler Moves;
-
+	
 }

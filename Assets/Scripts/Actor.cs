@@ -8,6 +8,18 @@ public class Actor : Extender  {
 	public StatsInfo stats;
 	public BoardLocation boardLocation;
 	public string actorName;
+	public ActorEvents events;
+
+	public void EndTurn(Actor sender) {
+		Debug.Log ("Clicked?");
+	}
+
+	void Start() {
+		events = this.gameObject.GetComponent<ActorEvents> ();
+
+		events.EndTurn += new ActorEvents.ActorEventHandler (EndTurn);
+
+	}
 }
 
 [System.Serializable]
