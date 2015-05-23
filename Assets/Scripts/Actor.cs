@@ -8,18 +8,76 @@ public class Actor : Extender  {
 	public StatsInfo stats;
 	public BoardLocation boardLocation;
 	public string actorName;
-	public ActorEvents events;
 
 	public void EndTurn(Actor sender) {
 		Debug.Log ("Clicked?");
 	}
 
-	void Start() {
-		events = this.gameObject.GetComponent<ActorEvents> ();
+	public void onClickEndTurn() {
+		if (EndsTurn != null) 
+			EndsTurn(this);
+	}
 
-		events.EndTurn += new ActorEvents.ActorEventHandler (EndTurn);
+	void Start() {
+		// events = this.gameObject.GetComponent<ActorEvents> ();
+
+		EndsTurn += new ActorEventHandler (EndTurn);
 
 	}
+
+	
+	public delegate void ActorEventHandler(Actor sender);
+	
+	/// <summary>
+	/// Occurs when this actor draws a card.
+	/// </summary>
+	public event ActorEventHandler DrawCard;
+	
+	/// <summary>
+	/// Occurs when this actor gains mana.
+	/// </summary>
+	public event ActorEventHandler GainMana;
+	
+	/// <summary>
+	/// Occurs when this actor is damaged.
+	/// </summary>
+	public event ActorEventHandler IsDamaged;
+	
+	/// <summary>
+	/// Occurs when this actor is healed.
+	/// </summary>
+	public event ActorEventHandler IsHealed;
+	
+	/// <summary>
+	/// Occurs when this actor is reduced to 0 HP.
+	/// </summary>
+	public event ActorEventHandler IsKilled;
+	
+	/// <summary>
+	/// Occurs when this actor begins their turn.
+	/// </summary>
+	public event ActorEventHandler BeginsTurn;
+	
+	/// <summary>
+	/// Occurs when this actor ends their turn.
+	/// </summary>
+	public event ActorEventHandler EndsTurn;
+	
+	/// <summary>
+	/// Occurs when this actor heals another actor.
+	/// </summary>
+	public event ActorEventHandler HealsOther;
+	
+	/// <summary>
+	/// Occurs when this actor damages another actor.
+	/// </summary>
+	public event ActorEventHandler DamagesOther;
+	
+	/// <summary>
+	/// Occurs when this actor moves.
+	/// </summary>
+	public event ActorEventHandler Moves;
+
 }
 
 [System.Serializable]
