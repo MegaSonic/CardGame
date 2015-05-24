@@ -92,7 +92,6 @@ public class World : MonoBehaviour {
 	/// Update this instance.
 	/// </summary>
 	void Update () {	
-
 		// re-initialize if the playerList has changed
 		if (ps != null) {
 			if (ps.playerList.Count != psState)

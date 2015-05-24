@@ -6,12 +6,17 @@ public class PlayerState : Extender {
 
 	public List<PlayerStateInfo> playerList;
 
+	public Sprite p1Sprite;
+	public Sprite p2Sprite;
+	public Sprite p3Sprite;
+
 	void Start() {
 		playerList = new List<PlayerStateInfo> ();
 		SetUpTest ();
-		//playerList.Add (new PlayerStateInfo ());
-		//playerList.Add (new PlayerStateInfo ());
-		//playerList.Add (new PlayerStateInfo ());
+
+		p1Sprite = Resources.Load<Sprite> ("player1-test");
+		p2Sprite = Resources.Load<Sprite> ("player2-test");
+		p3Sprite = Resources.Load<Sprite> ("player3-test");
 	}
 
 
@@ -19,7 +24,6 @@ public class PlayerState : Extender {
 	public void SetUpTest() {
 		PlayerStateInfo player1 = new PlayerStateInfo ();
 
-		// For some reason this gives a null reference exception??
 		player1.location.x = 3;
 	    player1.location.y = 1;
 
@@ -29,6 +33,7 @@ public class PlayerState : Extender {
 		player1.actorName = "player 1";
 		player1.playerType = Player.PlayerType.Warrior;
 		player1.playerJob = Player.PlayerJob.Warrior;
+		player1.gameOb.GetComponent<SpriteRenderer>().sprite = p1Sprite;
 
 		player1.stats.strength = 20;
 		player1.stats.magic = 5;
@@ -46,6 +51,7 @@ public class PlayerState : Extender {
 		player2.actorName = "player 2";
 		player2.playerType = Player.PlayerType.Thief;
 		player2.playerJob = Player.PlayerJob.Thief;
+		player2.gameOb.GetComponent<SpriteRenderer>().sprite = p2Sprite;
 		
 		player2.stats.strength = 15;
 		player2.stats.magic = 5;
@@ -63,6 +69,7 @@ public class PlayerState : Extender {
 		player3.actorName = "player 3";
 		player3.playerType = Player.PlayerType.Mage;
 		player3.playerJob = Player.PlayerJob.Mage;
+		player3.gameOb.GetComponent<SpriteRenderer>().sprite = p3Sprite;
 		
 		player3.stats.strength = 5;
 		player3.stats.magic = 17;
@@ -82,12 +89,18 @@ public class PlayerStateInfo
 	public HealthInfo health;
 	public StatsInfo stats;
 	public string actorName;
+	public GameObject gameOb;
 
 	public PlayerStateInfo()
 	{
 		location = new BoardLocation();
 		health = new HealthInfo ();
 		stats = new StatsInfo ();
+
+		gameOb = new GameObject ();
+		gameOb.AddComponent<SpriteRenderer> ();
+		gameOb.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
+
 	}
 
 }

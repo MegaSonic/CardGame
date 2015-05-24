@@ -647,6 +647,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerList: []
+  p1Sprite: {fileID: 21300000, guid: 5eaf3125210a77e48a8d62715b77bb43, type: 3}
+  p2Sprite: {fileID: 21300000, guid: 1cbdb111550f9f34697a7f06b83fe952, type: 3}
+  p3Sprite: {fileID: 21300000, guid: 706d80981cd17b74a816777b3f171e34, type: 3}
 --- !u!4 &473173361
 Transform:
   m_ObjectHideFlags: 0
