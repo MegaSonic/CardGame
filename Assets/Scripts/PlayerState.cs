@@ -6,12 +6,18 @@ public class PlayerState : Extender {
 
 	public List<PlayerStateInfo> playerList;
 
+	private Board theBoard;
+
 	public Sprite p1Sprite;
 	public Sprite p2Sprite;
 	public Sprite p3Sprite;
 
 	void Start() {
 		playerList = new List<PlayerStateInfo> ();
+
+		GameObject tmp = GameObject.Find ("Board");
+		theBoard = ExtensionMethods.GetSafeComponent<Board>(tmp);
+
 		SetUpTest ();
 
 		p1Sprite = Resources.Load<Sprite> ("player1-test");
@@ -22,58 +28,30 @@ public class PlayerState : Extender {
 
 
 	public void SetUpTest() {
-		PlayerStateInfo player1 = new PlayerStateInfo ();
+		PlayerStateInfo player1 = new PlayerStateInfo (3, 1, 100, 100, "player 1", Player.PlayerType.Warrior, Player.PlayerJob.Warrior, 20, 5, 10);
 
-		player1.location.x = 3;
-	    player1.location.y = 1;
-
-		player1.health.CurrentHealth = 100;
-		player1.health.MaxHealth = 100;
-
-		player1.actorName = "player 1";
-		player1.playerType = Player.PlayerType.Warrior;
-		player1.playerJob = Player.PlayerJob.Warrior;
 		player1.gameOb.GetComponent<SpriteRenderer>().sprite = p1Sprite;
+		float tmpX = theBoard.board [3, 1].screenLocationX;
+		float tmpY = theBoard.board [3, 1].screenLocationY;
+		player1.gameOb.transform.position = new Vector3 (tmpX, tmpY, 0);
 
-		player1.stats.strength = 20;
-		player1.stats.magic = 5;
-		player1.stats.speed = 10;
-		
 		playerList.Add (player1);
 
-		PlayerStateInfo player2 = new PlayerStateInfo ();
-		player2.location.x = 5;
-		player2.location.y = 0;
-		
-		player2.health.CurrentHealth = 80;
-		player2.health.MaxHealth = 80;
+		PlayerStateInfo player2 = new PlayerStateInfo (5, 0, 80, 80, "player 2", Player.PlayerType.Thief, Player.PlayerJob.Thief, 15, 5, 15);
 
-		player2.actorName = "player 2";
-		player2.playerType = Player.PlayerType.Thief;
-		player2.playerJob = Player.PlayerJob.Thief;
 		player2.gameOb.GetComponent<SpriteRenderer>().sprite = p2Sprite;
-		
-		player2.stats.strength = 15;
-		player2.stats.magic = 5;
-		player2.stats.speed = 15;
+		tmpX = theBoard.board [5, 0].screenLocationX;
+		tmpY = theBoard.board [5, 0].screenLocationY;
+		player2.gameOb.transform.position = new Vector3 (tmpX, tmpY, 0);
 		
 		playerList.Add (player2);
 
-		PlayerStateInfo player3 = new PlayerStateInfo ();
-		player3.location.x = 5;
-		player3.location.y = 2;
-		
-		player3.health.CurrentHealth = 80;
-		player3.health.MaxHealth = 80;
+		PlayerStateInfo player3 = new PlayerStateInfo (5, 2, 80, 80, "player 3", Player.PlayerType.Mage, Player.PlayerJob.Mage, 5, 17, 8);
 
-		player3.actorName = "player 3";
-		player3.playerType = Player.PlayerType.Mage;
-		player3.playerJob = Player.PlayerJob.Mage;
 		player3.gameOb.GetComponent<SpriteRenderer>().sprite = p3Sprite;
-		
-		player3.stats.strength = 5;
-		player3.stats.magic = 17;
-		player3.stats.speed = 8;
+		tmpX = theBoard.board [5, 2].screenLocationX;
+		tmpY = theBoard.board [5, 2].screenLocationY;
+		player3.gameOb.transform.position = new Vector3 (tmpX, tmpY, 0);
 		
 		playerList.Add (player3);
 
@@ -91,11 +69,18 @@ public class PlayerStateInfo
 	public string actorName;
 	public GameObject gameOb;
 
-	public PlayerStateInfo()
+	public PlayerStateInfo(int locX, int locY, int curHealth, int maxHealth, string pName, Player.PlayerType type, 
+	                       Player.PlayerJob job, int strength, int magic, int speed)
 	{
 		location = new BoardLocation();
-		health = new HealthInfo ();
-		stats = new StatsInfo ();
+		location.x = locX;
+		location.y = locY;
+
+		health = new HealthInfo (curHealth, maxHealth);
+		actorName = pName;
+		playerType = type;
+		playerJob = job;
+		stats = new StatsInfo (strength, magic, speed);
 
 		gameOb = new GameObject ();
 		gameOb.AddComponent<SpriteRenderer> ();

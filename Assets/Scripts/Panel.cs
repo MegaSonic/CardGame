@@ -2,9 +2,12 @@
 using System.Collections;
 
 public class Panel : Extender {
-	public int x;
 
+	public int x;
 	public int y;
+
+	public float screenLocationX;
+	public float screenLocationY;
 
 	/// Who is allowed to move onto this panel
 	public enum WhoCanUse {
@@ -23,6 +26,8 @@ public class Panel : Extender {
 	void Start() {
 		sprite = GetComponent<SpriteRenderer> ();
 
+		screenLocationX = this.transform.position.x;
+		screenLocationY = this.transform.position.y;
 	}
 
 	void Update() {

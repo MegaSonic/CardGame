@@ -124,6 +124,17 @@ public class HealthInfo {
 			maxHealth = value;
 		}
 	}
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="HealthInfo"/> class.
+	/// </summary>
+	/// <param name="health">Health.</param>
+	/// <param name="maxHealth">Max health.</param>
+	public HealthInfo(int currentHealth, int maxHealth)
+	{
+		this.currentHealth = currentHealth;
+		this.maxHealth = maxHealth;
+	}
 }
 
 [System.Serializable]
@@ -140,6 +151,19 @@ public class StatsInfo {
 	public int maxMove;
 
 	public int remainingMove;
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="StatsInfo"/> class.
+	/// </summary>
+	/// <param name="strength">Strength.</param>
+	/// <param name="magic">Magic.</param>
+	/// <param name="speed">Speed.</param>
+	public StatsInfo(int strength, int magic, int speed)
+	{
+		this.strength = strength;
+		this.magic = magic;
+		this.speed = speed;
+	}
 }
 
 

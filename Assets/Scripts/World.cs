@@ -76,6 +76,8 @@ public class World : MonoBehaviour {
 	/// </summary>
 	/// <returns>The current turn.</returns>
 	public int getCurrentTurn(){
+		if (turnOrder.Count == 0)
+			return 0;
 		return turnOrder[currentTurnIndex];
 	}
 

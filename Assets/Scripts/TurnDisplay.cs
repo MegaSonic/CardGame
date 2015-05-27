@@ -42,6 +42,9 @@ public class TurnDisplay : MonoBehaviour {
 	/// </summary>
 	void DisplayTurn()
 	{
+		if (ps.playerList.Count == 0)
+			return;
+
 		int turnIndex = world.getCurrentTurn ();
 		string name = ps.playerList [turnIndex].actorName;
 

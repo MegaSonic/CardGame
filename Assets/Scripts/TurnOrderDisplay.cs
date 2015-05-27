@@ -11,7 +11,6 @@ public class TurnOrderDisplay : MonoBehaviour {
 	private World world;
 	private PlayerState ps;
 
-
 	// Use this for initialization
 	void Start () {
 		GameObject tmp = GameObject.Find ("World");
