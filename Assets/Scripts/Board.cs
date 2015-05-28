@@ -18,10 +18,12 @@ public class Board : Extender {
 		}
 	}
 
-	public void GetIDFromActor(Actor actor, ref int x, ref int y) {
+	public void GetLocationFromActor(Actor actor, ref int x, ref int y) {
 		foreach (Panel p in board) {
 			if (p.Unit == actor) {
-
+                x = p.x;
+                y = p.y;
+                break;
 			}
 		}
 	}

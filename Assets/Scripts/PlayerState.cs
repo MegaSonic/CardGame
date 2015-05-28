@@ -29,34 +29,30 @@ public class PlayerState : Extender {
 
 	public void SetUpTest() {
 		Player player1 = Player.CreatePlayer (3, 1, 100, 100, "player 1", Player.PlayerType.Warrior, Player.PlayerJob.Warrior, 20, 5, 10);
-
-		// set up sprite and initialize location -- we should have a function for this
-		player1.playerScreenObj.GetComponent<SpriteRenderer>().sprite = p1Sprite;
-		float tmpX = theBoard.board [3, 1].screenLocationX;
-		float tmpY = theBoard.board [3, 1].screenLocationY;
-		player1.playerScreenObj.transform.position = new Vector3 (tmpX, tmpY, 0);
-		theBoard.board [3, 1].Unit = player1;
-
+        SetUpPlayer(player1, p1Sprite, 3, 1);
 		playerList.Add (player1);
 
 		Player player2 = Player.CreatePlayer (5, 0, 80, 80, "player 2", Player.PlayerType.Thief, Player.PlayerJob.Thief, 15, 5, 15);
-
-		player2.playerScreenObj.GetComponent<SpriteRenderer>().sprite = p2Sprite;
-		tmpX = theBoard.board [5, 0].screenLocationX;
-		tmpY = theBoard.board [5, 0].screenLocationY;
-		player2.playerScreenObj.transform.position = new Vector3 (tmpX, tmpY, 0);
-		theBoard.board [5, 0].Unit = player2;
-		
+        SetUpPlayer(player2, p2Sprite, 5, 0);
 		playerList.Add (player2);
 
 		Player player3 = Player.CreatePlayer (5, 2, 80, 80, "player 3", Player.PlayerType.Mage, Player.PlayerJob.Mage, 5, 17, 8);
-
-		player3.playerScreenObj.GetComponent<SpriteRenderer>().sprite = p3Sprite;
-		tmpX = theBoard.board [5, 2].screenLocationX;
-		tmpY = theBoard.board [5, 2].screenLocationY;
-		player3.playerScreenObj.transform.position = new Vector3 (tmpX, tmpY, 0);
-		theBoard.board [5, 2].Unit = player3;
-		
+        SetUpPlayer(player3, p3Sprite, 5, 2);
 		playerList.Add (player3);
 	}
+
+    /// <summary>
+    /// Sets up a player sprite on the Panel x, y
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    public void SetUpPlayer(Player player, Sprite sprite, int x, int y)
+    {
+        player.playerScreenObj.GetComponent<SpriteRenderer>().sprite = sprite;
+        float tmpX = theBoard.board[x, y].screenLocationX;
+        float tmpY = theBoard.board[x, y].screenLocationY;
+        player.playerScreenObj.transform.position = new Vector3(tmpX, tmpY, 0);
+        theBoard.board[x, y].Unit = player;
+    }
 }

@@ -9,17 +9,17 @@ public class Panel : Extender {
 	public float screenLocationX;
 	public float screenLocationY;
 
+    public WhoCanUse Owner;
+
+    // Null if no unit is in panel
+    public Actor Unit;
+
 	/// Who is allowed to move onto this panel
 	public enum WhoCanUse {
 		Player = 1,
 		Enemy = 2,
 		Neither = 3
 	}
-
-	public WhoCanUse Owner;
-	
-	// Null if no unit is in panel
-	public Actor Unit;
 
 	private SpriteRenderer sprite;
 	private World world;
@@ -72,6 +72,11 @@ public class Panel : Extender {
 		}
 
 	}
+
+    void OnMouseDown()
+    {
+
+    }
 
 	/// <summary>
 	/// Raises the double click event.

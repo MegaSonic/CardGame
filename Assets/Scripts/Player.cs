@@ -12,6 +12,8 @@ public class Player : Actor {
 	public GameObject playerScreenObj;
 	public static GameObject playerObj;
 
+    private bool isDragging;
+
 	public enum PlayerType {
 		Warrior = 1,
 		Mage = 2,
@@ -50,5 +52,8 @@ public class Player : Actor {
 
 		return thisObj;
 	}
+
+
+
 
 }

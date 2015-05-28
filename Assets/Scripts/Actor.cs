@@ -31,8 +31,8 @@ public class Actor : Extender  {
 
 	
 	public delegate void ActorEventHandler(Actor sender);
-	
-	/// <summary>
+
+    /// <summary>
 	/// Occurs when this actor draws a card.
 	/// </summary>
 	public event ActorEventHandler DrawCard;
