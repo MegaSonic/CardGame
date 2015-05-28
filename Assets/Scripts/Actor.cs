@@ -6,13 +6,12 @@ using UnityEditor;
 public class Actor : Extender  {
 	public HealthInfo health;
 	public StatsInfo stats;
-	public BoardLocation boardLocation;
+	public BoardLocation location;
 	public string actorName;
 
 	private World world;
 
 	public void EndTurn(Actor sender) {
-		Debug.Log ("Clicked?");
 		world.changeTurns();
 	}
 
@@ -89,6 +88,12 @@ public class Actor : Extender  {
 public class BoardLocation {
 	public int x;
 	public int y;
+
+	public BoardLocation(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
 }
 
 [System.Serializable]

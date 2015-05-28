@@ -163,6 +163,7 @@ GameObject:
   - 4: {fileID: 406934}
   - 212: {fileID: 21201294}
   - 114: {fileID: 11486380}
+  - 61: {fileID: 6139554}
   m_Layer: 0
   m_Name: square 0,0
   m_TagString: Untagged
@@ -568,6 +569,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 463906}
   m_RootOrder: 6
+--- !u!61 &6139554
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158674}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -3.81469727e-06, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 8.00000095, y: 7.99999952}
 --- !u!114 &11400998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -581,6 +595,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 3
   y: 1
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11403706
@@ -596,6 +612,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 4
   y: 1
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11404476
@@ -622,6 +640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 2
   y: 1
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11410136
@@ -637,6 +657,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 4
   y: 2
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11426948
@@ -652,6 +674,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 5
   y: 0
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11433350
@@ -667,6 +691,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 1
   y: 0
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11440602
@@ -682,6 +708,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 4
   y: 0
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11441714
@@ -697,6 +725,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 2
   y: 2
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11443202
@@ -712,6 +742,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 5
   y: 2
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11453022
@@ -727,6 +759,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 2
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11456032
@@ -742,6 +776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 1
   y: 2
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11458492
@@ -757,6 +793,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 2
   y: 0
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11460164
@@ -772,6 +810,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 5
   y: 1
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11461226
@@ -787,6 +827,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 1
   y: 1
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11461956
@@ -802,6 +844,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 3
   y: 0
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11468460
@@ -817,6 +861,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 3
   y: 2
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 1
   Unit: {fileID: 0}
 --- !u!114 &11469028
@@ -832,6 +878,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 1
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!114 &11486380
@@ -847,6 +895,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
+  screenLocationX: 0
+  screenLocationY: 0
   Owner: 2
   Unit: {fileID: 0}
 --- !u!212 &21201294
