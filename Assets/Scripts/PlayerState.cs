@@ -49,10 +49,10 @@ public class PlayerState : Extender {
     /// <param name="y"></param>
     public void SetUpPlayer(Player player, Sprite sprite, int x, int y)
     {
-        player.playerScreenObj.GetComponent<SpriteRenderer>().sprite = sprite;
+        player.playerSprite.sprite = sprite;
         float tmpX = theBoard.board[x, y].screenLocationX;
         float tmpY = theBoard.board[x, y].screenLocationY;
-        player.playerScreenObj.transform.position = new Vector3(tmpX, tmpY, 0);
+        player.transform.position = new Vector3(tmpX, tmpY);
         theBoard.board[x, y].Unit = player;
     }
 }

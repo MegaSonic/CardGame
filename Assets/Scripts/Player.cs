@@ -9,7 +9,7 @@ public class Player : Actor {
 	//public HealthInfo health;
 	//public StatsInfo stats;
 	//public string actorName;
-	public GameObject playerScreenObj;
+    public SpriteRenderer playerSprite;
 	public static GameObject playerObj;
 
     private bool isDragging;
@@ -36,21 +36,24 @@ public class Player : Actor {
 	public static Player CreatePlayer(int locX, int locY, int curHealth, int maxHealth, string pName, PlayerType type, 
 	                       PlayerJob job, int strength, int magic, int speed)
 	{
-		playerObj = new GameObject ("Player Object");
-		Player thisObj = playerObj.AddComponent<Player> ();
+        playerObj = Instantiate(Resources.Load("Player Object")) as GameObject;
+        Player player = playerObj.GetSafeComponent<Player>();
 
-		thisObj.location = new BoardLocation(locX, locY);
-		thisObj.health = new HealthInfo (curHealth, maxHealth);
-		thisObj.actorName = pName;
-		thisObj.playerType = type;
-		thisObj.playerJob = job;
-		thisObj.stats = new StatsInfo (strength, magic, speed);
-		
-		thisObj.playerScreenObj = new GameObject ();
-		thisObj.playerScreenObj.AddComponent<SpriteRenderer> ();
-		thisObj.playerScreenObj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);		
+		player.location = new BoardLocation(locX, locY);
+		player.health = new HealthInfo (curHealth, maxHealth);
+		player.actorName = pName;
+		player.playerType = type;
+		player.playerJob = job;
+		player.stats = new StatsInfo (strength, magic, speed);
 
-		return thisObj;
+        player.playerSprite = playerObj.GetComponent<SpriteRenderer>();
+		// thisObj.playerScreenObj.AddComponent<SpriteRenderer> ();
+		// thisObj.playerScreenObj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);		
+
+        playerObj.transform.parent = GameObject.Find("Players").transform;
+        playerObj.name = player.actorName;
+
+		return player;
 	}
 
 

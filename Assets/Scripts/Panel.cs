@@ -101,7 +101,7 @@ public class Panel : Extender {
 
 		// move player into this panel
 		curPlayer.location = new BoardLocation (x, y);
-		curPlayer.playerScreenObj.transform.position = new Vector3 (screenLocationX, screenLocationY, 0);
+		curPlayer.transform.position = new Vector3 (screenLocationX, screenLocationY, 0);
 		Unit = curPlayer;
 	}
 	                                     
