@@ -11,19 +11,15 @@ public class Actor : Extender  {
 
 	private World world;
 
-	public void EndTurn(Actor sender) {
-		world.changeTurns();
-	}
+	
 
-	public void onClickEndTurn() {
+	public void CallEndTurnEvent() {
 		if (EndsTurn != null) 
 			EndsTurn(this);
 	}
 
 	void Start() {
 		// events = this.gameObject.GetComponent<ActorEvents> ();
-
-		EndsTurn += new ActorEventHandler (EndTurn);
 
 		GameObject tmp = GameObject.Find ("World");
 		world = ExtensionMethods.GetSafeComponent<World>(tmp);

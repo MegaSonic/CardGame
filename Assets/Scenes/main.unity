@@ -730,6 +730,21 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -4.76837158e-07}
   serializedVersion: 2
   m_Size: {x: 8.00000095, y: 7.99999952}
+--- !u!1 &1621209367 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 104402, guid: 04b07963d6c99924bb4f188532e26c4d, type: 2}
+  m_PrefabInternal: {fileID: 1880686975}
+--- !u!114 &1621209371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1621209367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d82b34909ba704d9a3709e8bca9d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1655769403 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 190476, guid: caea9b48f9645a542a924ff30d4d19b3, type: 2}
@@ -882,6 +897,18 @@ Prefab:
     - target: {fileID: 11405960, guid: 04b07963d6c99924bb4f188532e26c4d, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1621209371}
+    - target: {fileID: 11405960, guid: 04b07963d6c99924bb4f188532e26c4d, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405960, guid: 04b07963d6c99924bb4f188532e26c4d, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405960, guid: 04b07963d6c99924bb4f188532e26c4d, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04b07963d6c99924bb4f188532e26c4d, type: 2}

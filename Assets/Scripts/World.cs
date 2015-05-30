@@ -71,6 +71,11 @@ public class World : MonoBehaviour {
 		return turnOrder;
 	}
 
+    public Actor GetCurrentActor()
+    {
+        return ps.playerList[turnOrder[currentTurnIndex]];
+    }
+
 	/// <summary>
 	/// Gets the index in the playerList of who has the current turn.
 	/// </summary>
