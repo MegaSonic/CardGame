@@ -9,4 +9,9 @@ public static class EffectLookup {
 		MagicBuff = 2,
 		SpeedBuff = 3
 	}
+
+    public static void Lookup(EffectType effectType)
+    {
+
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class Actor : Extender  {
@@ -11,11 +12,11 @@ public class Actor : Extender  {
 
 	private World world;
 
-	
+    public Dictionary<string, ActorEvent> actorEventList;
+
 
 	public void CallEndTurnEvent() {
-		if (EndsTurn != null) 
-			EndsTurn(this);
+		
 	}
 
 	void Start() {
@@ -25,59 +26,24 @@ public class Actor : Extender  {
 		world = ExtensionMethods.GetSafeComponent<World>(tmp);
 	}
 
-	
-	public delegate void ActorEventHandler(Actor sender);
+    
+    
+	public void CallActorEvent(string eventName) {
+        if (actorEventList.ContainsKey(eventName))
+        {
+            actorEventList[eventName].CallEvent();
+        }
+    }
 
     /// <summary>
-	/// Occurs when this actor draws a card.
-	/// </summary>
-	public event ActorEventHandler DrawCard;
-	
-	/// <summary>
-	/// Occurs when this actor gains mana.
-	/// </summary>
-	public event ActorEventHandler GainMana;
-	
-	/// <summary>
-	/// Occurs when this actor is damaged.
-	/// </summary>
-	public event ActorEventHandler IsDamaged;
-	
-	/// <summary>
-	/// Occurs when this actor is healed.
-	/// </summary>
-	public event ActorEventHandler IsHealed;
-	
-	/// <summary>
-	/// Occurs when this actor is reduced to 0 HP.
-	/// </summary>
-	public event ActorEventHandler IsKilled;
-	
-	/// <summary>
-	/// Occurs when this actor begins their turn.
-	/// </summary>
-	public event ActorEventHandler BeginsTurn;
-	
-	/// <summary>
-	/// Occurs when this actor ends their turn.
-	/// </summary>
-	public event ActorEventHandler EndsTurn;
-	
-	/// <summary>
-	/// Occurs when this actor heals another actor.
-	/// </summary>
-	public event ActorEventHandler HealsOther;
-	
-	/// <summary>
-	/// Occurs when this actor damages another actor.
-	/// </summary>
-	public event ActorEventHandler DamagesOther;
-	
-	/// <summary>
-	/// Occurs when this actor moves.
-	/// </summary>
-	public event ActorEventHandler Moves;
+    /// Initializes events. Create any new events in this method.
+    /// </summary>
+    public void InitializeEvents()
+    {
+        actorEventList.Add("EndedTurn", new ActorEvent(ActorEvent.EventType.EndedTurn));
+        actorEventList.Add("BeganTurn", new ActorEvent(ActorEvent.EventType.BeganTurn));
 
+    }
 }
 
 [System.Serializable]
