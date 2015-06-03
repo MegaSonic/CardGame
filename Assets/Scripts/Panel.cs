@@ -94,6 +94,12 @@ public class Panel : Extender {
 	{
 		Player curPlayer = ps.playerList[world.getCurrentTurn()];
 
+		// if player can't move, don't
+		if (curPlayer.stats.remainingMove <= 0)
+			return;
+		else
+			curPlayer.stats.remainingMove -= 1;
+		
 		// remove player from it's previous panel
 		BoardLocation oldLoc = curPlayer.location;
 		Panel oldPanel = theBoard.board [oldLoc.x, oldLoc.y];

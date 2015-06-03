@@ -91,8 +91,14 @@ public class World : MonoBehaviour {
 	/// </summary>
 	public void changeTurns(){
 		currentTurnIndex++;
-		if (currentTurnIndex >= turnOrder.Count)
+
+		// loop back around - 
+		//  reset remaining moves for each player
+		if (currentTurnIndex >= turnOrder.Count) {
 			currentTurnIndex = 0;
+			foreach (Player p in ps.playerList)			
+				p.stats.remainingMove = p.stats.maxMove;
+		}
 	}
 
 	/// <summary>

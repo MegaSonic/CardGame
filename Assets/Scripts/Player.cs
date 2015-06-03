@@ -34,7 +34,7 @@ public class Player : Actor {
 	}
 	
 	public static Player CreatePlayer(int locX, int locY, int curHealth, int maxHealth, string pName, PlayerType type, 
-	                       PlayerJob job, int strength, int magic, int speed)
+	                       PlayerJob job, int strength, int magic, int speed, int maxMove)
 	{
         playerObj = Instantiate(Resources.Load("Player Object")) as GameObject;
         Player player = playerObj.GetSafeComponent<Player>();
@@ -44,7 +44,7 @@ public class Player : Actor {
 		player.actorName = pName;
 		player.playerType = type;
 		player.playerJob = job;
-		player.stats = new StatsInfo (strength, magic, speed);
+		player.stats = new StatsInfo (strength, magic, speed, maxMove);
 
         player.playerSprite = playerObj.GetComponent<SpriteRenderer>();
 		// thisObj.playerScreenObj.AddComponent<SpriteRenderer> ();

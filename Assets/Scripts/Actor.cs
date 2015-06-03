@@ -159,11 +159,13 @@ public class StatsInfo {
 	/// <param name="strength">Strength.</param>
 	/// <param name="magic">Magic.</param>
 	/// <param name="speed">Speed.</param>
-	public StatsInfo(int strength, int magic, int speed)
+	public StatsInfo(int strength, int magic, int speed, int maxMove)
 	{
 		this.strength = strength;
 		this.magic = magic;
 		this.speed = speed;
+		this.maxMove = maxMove;
+		remainingMove = maxMove;
 	}
 }
 

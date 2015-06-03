@@ -46,9 +46,11 @@ public class TurnDisplay : MonoBehaviour {
 			return;
 
 		int turnIndex = world.getCurrentTurn ();
-		string name = ps.playerList [turnIndex].actorName;
+		Player p = ps.playerList [turnIndex];
+		string name = p.actorName;
+		int moves = p.stats.remainingMove;
 
-		txt.text = "Current turn: " + name;
+		txt.text = "Current turn: " + name + " Moves left: " + moves;
 	}
 
 }
