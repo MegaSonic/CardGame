@@ -94,6 +94,10 @@ public class Panel : Extender {
 	{
 		Player curPlayer = ps.playerList[world.getCurrentTurn()];
 
+		// if player isn't adjacent, don't move
+		if (!IsAdjacent (curPlayer))
+			return;
+
 		// if player can't move, don't
 		if (curPlayer.stats.remainingMove <= 0)
 			return;
@@ -110,5 +114,25 @@ public class Panel : Extender {
 		curPlayer.transform.position = new Vector3 (screenLocationX, screenLocationY, 0);
 		Unit = curPlayer;
 	}
-	                                     
+	 
+	/// <summary>
+	/// Determines whether this panel is adjacent the specified player.
+	/// </summary>
+	/// <returns><c>true</c> if this instance is adjacent the specified p; otherwise, <c>false</c>.</returns>
+	/// <param name="p">Player.</param>
+	public bool IsAdjacent(Player p)
+	{
+		// get player's x and y values
+		int pX = p.location.x;
+		int pY = p.location.y;
+
+		int diffX = Mathf.Abs (pX - x);
+		int diffY = Mathf.Abs (pY - y);
+		
+		if (diffX + diffY != 1)
+			return false;
+		else
+			return true;
+	}
+
 }
