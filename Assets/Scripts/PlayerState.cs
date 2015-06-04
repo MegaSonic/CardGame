@@ -28,15 +28,15 @@ public class PlayerState : Extender {
 
 
 	public void SetUpTest() {
-		Player player1 = Player.CreatePlayer (3, 1, 100, 100, "player 1", Player.PlayerType.Warrior, Player.PlayerJob.Warrior, 20, 5, 10, 3);
+		Player player1 = Player.CreatePlayer (3, 1, 100, 100, "player 1", PlayerType.Warrior, PlayerJob.Warrior, 20, 5, 10, 3);
         SetUpPlayer(player1, p1Sprite, 3, 1);
 		playerList.Add (player1);
 
-		Player player2 = Player.CreatePlayer (5, 0, 80, 80, "player 2", Player.PlayerType.Thief, Player.PlayerJob.Thief, 15, 5, 15, 4);
+		Player player2 = Player.CreatePlayer (5, 0, 80, 80, "player 2", PlayerType.Thief, PlayerJob.Thief, 15, 5, 15, 4);
         SetUpPlayer(player2, p2Sprite, 5, 0);
 		playerList.Add (player2);
 
-		Player player3 = Player.CreatePlayer (5, 2, 80, 80, "player 3", Player.PlayerType.Mage, Player.PlayerJob.Mage, 5, 17, 8, 3);
+		Player player3 = Player.CreatePlayer (5, 2, 80, 80, "player 3", PlayerType.Mage, PlayerJob.Mage, 5, 17, 8, 3);
         SetUpPlayer(player3, p3Sprite, 5, 2);
 		playerList.Add (player3);
 	}

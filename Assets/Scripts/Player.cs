@@ -1,6 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum PlayerType
+{
+    Warrior = 1,
+    Mage = 2,
+    Thief = 3
+}
+
+// Note: give each enum a value. Otherwise, if we decide to rearrange enums or remove them, 
+// the inspector value will break.
+public enum PlayerJob
+{
+    Warrior = 1,
+    Mage = 2,
+    Thief = 3,
+    Paladin = 4,
+    Cleric = 5,
+    Sniper = 6,
+    Ninja = 7
+
+}
+
 public class Player : Actor {
 
 	public PlayerType playerType;
@@ -13,25 +34,6 @@ public class Player : Actor {
 	public static GameObject playerObj;
 
     private bool isDragging;
-
-	public enum PlayerType {
-		Warrior = 1,
-		Mage = 2,
-		Thief = 3
-	}
-
-	// Note: give each enum a value. Otherwise, if we decide to rearrange enums or remove them, 
-	// the inspector value will break.
-	public enum PlayerJob {
-		Warrior = 1,
-		Mage = 2,
-		Thief = 3,
-		Paladin = 4,
-		Cleric = 5,
-		Sniper = 6,
-		Ninja = 7
-
-	}
 	
 	public static Player CreatePlayer(int locX, int locY, int curHealth, int maxHealth, string pName, PlayerType type, 
 	                       PlayerJob job, int strength, int magic, int speed, int maxMove)

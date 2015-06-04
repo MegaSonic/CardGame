@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class Actor : Extender  {
@@ -12,7 +13,7 @@ public class Actor : Extender  {
 
 	private World world;
 
-    public Dictionary<string, ActorEvent> actorEventList;
+    public Dictionary<EventName, ActorEvent> actorEventList;
 
 
 	public void CallEndTurnEvent() {
@@ -28,21 +29,22 @@ public class Actor : Extender  {
 
     
     
-	public void CallActorEvent(string eventName) {
-        if (actorEventList.ContainsKey(eventName))
+	public void CallActorEvent(EventName e) {
+        if (actorEventList.ContainsKey(e))
         {
-            actorEventList[eventName].CallEvent();
+            actorEventList[e].CallEvent();
         }
     }
 
     /// <summary>
-    /// Initializes events. Create any new events in this method.
+    /// Initializes events. Will automatically create a new event for every type of events in the enum in ActorEvents.
     /// </summary>
     public void InitializeEvents()
     {
-        actorEventList.Add("EndedTurn", new ActorEvent(ActorEvent.EventType.EndedTurn));
-        actorEventList.Add("BeganTurn", new ActorEvent(ActorEvent.EventType.BeganTurn));
-
+        foreach (EventName e in Enum.GetValues(typeof(EventName)))
+        {
+            actorEventList.Add(e, new ActorEvent());
+        }
     }
 }
 

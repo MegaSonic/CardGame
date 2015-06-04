@@ -102,7 +102,7 @@ public class Card : Extender {
 		/// <summary>
 		/// The target ID type.
 		/// </summary>
-		public TargetLookup.TargetType targetID;
+		public TargetType targetID;
 
 		/// <summary>
 		/// Whether or not this card should use a damage calculation in its attack.
@@ -117,7 +117,7 @@ public class Card : Extender {
 		/// <summary>
 		/// Should this action also apply an effect to the targets?
 		/// </summary>
-		public EffectLookup.EffectType effectID;
+		public EffectType effectID;
 
 
 	}

@@ -3,46 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
+/// List of event names. Any new events should be created here!
+/// </summary>
+public enum EventName
+{
+    Test = 0,
+    WasHealed = 1,
+    WasDamaged = 2,
+    Moved = 3,
+    EndedTurn = 4,
+    GainedMana = 5,
+    BeganTurn = 6,
+    HealedOther = 7,
+    DamagedOther = 8,
+    WasKilled = 9,
+    KilledOther = 10
+}
+
+/// <summary>
 /// First crack at a custom event class for Actors to use. See Actor as well.
 /// </summary>
 public class ActorEvent {
 
-    /// <summary>
-    /// Any new types of event should go here.
-    /// </summary>
-    public enum EventType
-    {
-        Test = 0,
-        WasHealed = 1,
-        WasDamaged = 2,
-        Moved = 3,
-        EndedTurn = 4,
-        GainedMana = 5,
-        BeganTurn = 6,
-        HealedOther = 7,
-        DamagedOther = 8,
-        WasKilled = 9,
-        KilledOther = 10
-    }
-
-    /// <summary>
-    /// The type of event.
-    /// </summary>
-    public EventType eventType;
+   
 
     /// <summary>
     /// The list of events that are subscribed to this.
     /// </summary>
-    public List<EffectLookup.EffectType> eventList;
+    public List<EffectType> eventList;
 
     /// <summary>
     /// Creates a new Actor Event.
     /// </summary>
-    /// <param name="typeOfEvent"></param>
-    public ActorEvent(EventType typeOfEvent)
+    public ActorEvent()
     {
-        eventType = typeOfEvent;
-        eventList = new List<EffectLookup.EffectType>();
+
+        eventList = new List<EffectType>();
     }
 
     /// <summary>
@@ -50,7 +46,7 @@ public class ActorEvent {
     /// </summary>
     public void CallEvent()
     {
-        foreach (EffectLookup.EffectType e in eventList)
+        foreach (EffectType e in eventList)
         {
             EffectLookup.Lookup(e);
         }
@@ -61,7 +57,7 @@ public class ActorEvent {
     /// </summary>
     /// <param name="a"></param>
     /// <param name="effect"></param>
-    public static ActorEvent operator +(ActorEvent a, EffectLookup.EffectType effect)
+    public static ActorEvent operator +(ActorEvent a, EffectType effect)
     {
         if (effect != null)
             a.eventList.Add(effect);

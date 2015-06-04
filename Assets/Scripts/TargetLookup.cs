@@ -2,16 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// Note: give each enum a value. Otherwise, if we decide to rearrange enums or remove them, the inspector value will break.
+public enum TargetType
+{
+    WideSword = 1,
+    LongSword = 2
+}
+
 /// <summary>
 /// A static class that handles all the different targetting methods for various cards.
 /// </summary>
 public static class TargetLookup {
 
-	// Note: give each enum a value. Otherwise, if we decide to rearrange enums or remove them, the inspector value will break.
-	public enum TargetType {
-		WideSword = 1,
-		LongSword = 2
-	}
+	
 
 	// This will return all actors in the area of effect
 	// If you want it to "smart cast", aka not hit player units if cast by a player
