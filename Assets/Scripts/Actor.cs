@@ -4,6 +4,13 @@ using UnityEditor;
 using System.Collections.Generic;
 using System;
 
+public enum Direction {
+    Up = 0,
+    Left = 1,
+    Right = 2,
+    Down = 3
+}
+
 [System.Serializable]
 public class Actor : Extender  {
 	public HealthInfo health;
@@ -13,11 +20,11 @@ public class Actor : Extender  {
 
 	private World world;
 
-    public Dictionary<EventName, ActorEvent> actorEventList;
+    public Dictionary<EventName, ActorEvent> actorEventList = new Dictionary<EventName,ActorEvent>();
 
 
 	public void CallEndTurnEvent() {
-		
+        CallActorEvent(EventName.EndedTurn);
 	}
 
 	void Start() {
@@ -25,6 +32,7 @@ public class Actor : Extender  {
 
 		GameObject tmp = GameObject.Find ("World");
 		world = ExtensionMethods.GetSafeComponent<World>(tmp);
+        InitializeEvents();
 	}
 
     
@@ -46,6 +54,8 @@ public class Actor : Extender  {
             actorEventList.Add(e, new ActorEvent());
         }
     }
+
+    
 }
 
 [System.Serializable]
