@@ -64,4 +64,22 @@ public class ActorEvent {
 
         return a;
     }
+
+
+    public class CustomEvent
+    {
+        EffectType effectType;
+        object[] payload;
+
+        public CustomEvent(EffectType e, params object[] p)
+        {
+            effectType = e;
+            payload = p;
+        }
+
+        public void CallEvent()
+        {
+            EffectLookup.Lookup(effectType, payload);
+        }
+    }
 }

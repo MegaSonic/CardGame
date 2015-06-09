@@ -12,8 +12,12 @@ public enum EffectType
 public static class EffectLookup {
 
 	
-
-    public static void Lookup(EffectType effectType)
+    /// <summary>
+    /// Looks up an effect. Payloads lets you send an optional number of objects which Lookup will handle (or not)
+    /// </summary>
+    /// <param name="effectType"></param>
+    /// <param name="payloads"></param>
+    public static void Lookup(EffectType effectType, params object[] payloads)
     {
 
     }
