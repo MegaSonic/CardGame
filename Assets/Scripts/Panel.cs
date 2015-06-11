@@ -64,13 +64,14 @@ public class Panel : Extender {
 	/// </summary>
 	void OnMouseUp()
 	{
+		/*
 		if ((Time.time - clickTime) < doubleClickSensitivity) {
 			OnDoubleClick ();
 			clickTime = -1f;
 		} else {
 			clickTime = Time.time;
 		}
-
+	*/
 	}
 
     void OnMouseDown()
@@ -83,8 +84,10 @@ public class Panel : Extender {
 	/// </summary>
 	void OnDoubleClick()
 	{
+		/*
 		if (Owner == WhoCanUse.Player && Unit == null)
 			MoveCurrentPlayerIntoMe ();
+			*/
 	}
 
 	/// <summary>
@@ -92,6 +95,7 @@ public class Panel : Extender {
 	/// </summary>
 	private void MoveCurrentPlayerIntoMe()
 	{
+		/*
 		Player curPlayer = ps.playerList[world.getCurrentTurn()];
 
 		// if player isn't adjacent, don't move
@@ -113,6 +117,7 @@ public class Panel : Extender {
 		curPlayer.location = new BoardLocation (x, y);
 		curPlayer.transform.position = new Vector3 (screenLocationX, screenLocationY, 0);
 		Unit = curPlayer;
+		*/
 	}
 	 
 	/// <summary>

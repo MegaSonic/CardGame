@@ -164,7 +164,7 @@ public class World : MonoBehaviour {
         switch (d)
         {
             case Direction.Up:
-                if (a.location.y == 0) return false;
+                if (!IsMoveAllowed(a, d)) return false;
                 if (CheckForSwap(a, Direction.Up))
                 {
                     SwapActors(a, board.board[a.location.x, a.location.y - 1].Unit);
@@ -179,7 +179,7 @@ public class World : MonoBehaviour {
                 
                 break;
             case Direction.Left:
-                if (a.location.x == 0) return false;
+				if (!IsMoveAllowed(a, d)) return false;
                 if (CheckForSwap(a, Direction.Left))
                 {
                     SwapActors(a, board.board[a.location.x - 1, a.location.y].Unit);
@@ -194,7 +194,7 @@ public class World : MonoBehaviour {
                 
                 break;
             case Direction.Right:
-                if (a.location.x == 5) return false;
+				if (!IsMoveAllowed(a, d)) return false;
                 if (CheckForSwap(a, Direction.Right))
                 {
                     SwapActors(a, board.board[a.location.x + 1, a.location.y].Unit);
@@ -209,7 +209,7 @@ public class World : MonoBehaviour {
                 
                 break;
             case Direction.Down:
-                if (a.location.y == 2) return false;
+				if (!IsMoveAllowed(a, d)) return false;
                 if (CheckForSwap(a, Direction.Down))
                 {
                     SwapActors(a, board.board[a.location.x, a.location.y + 1].Unit);
@@ -227,6 +227,38 @@ public class World : MonoBehaviour {
         a.stats.remainingMove -= 1;
         return true;
     }
+
+	/// <summary>
+	/// Determines whether the given actor is allowed to move into the panel at given direction.
+	/// </summary>
+	/// <returns><c>true</c> if the given actor can move in the given direction; otherwise, <c>false</c>.</returns>
+	/// <param name="a">The actor.</param>
+	/// <param name="d">The cardinal direction.</param>
+	public bool IsMoveAllowed(Actor a, Direction d)
+	{
+		switch (d)
+		{
+			case Direction.Up:
+				if (a.location.y == 0) return false;
+			if (board.board[a.location.x, a.location.y - 1].Owner == Panel.WhoCanUse.Player) return true;
+				break;
+			case Direction.Left:
+				if (a.location.x == 0) return false;
+			if (board.board[a.location.x - 1, a.location.y].Owner == Panel.WhoCanUse.Player) return true;
+				break;
+			case Direction.Right:
+				if (a.location.x == 5) return false;
+			if (board.board[a.location.x + 1, a.location.y].Owner == Panel.WhoCanUse.Player) return true;
+				break;
+			case Direction.Down:
+				if (a.location.y == 2) return false;
+			if (board.board[a.location.x, a.location.y + 1].Owner == Panel.WhoCanUse.Player) return true;
+				break;
+		}
+		return false;
+
+	}
+		
 
     /// <summary>
     /// Checks if moving an actor in the given direction will require a swap.
