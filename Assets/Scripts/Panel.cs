@@ -29,6 +29,12 @@ public class Panel : Extender {
 	private float doubleClickSensitivity = 0.3f;
 	private float clickTime = 0f;
 
+	void Awake() {
+		screenLocationX = this.transform.position.x;
+		screenLocationY = this.transform.position.y;
+
+	}
+
 	void Start() {
 		sprite = GetComponent<SpriteRenderer> ();
 
@@ -40,9 +46,6 @@ public class Panel : Extender {
 
 		GameObject tmp3 = GameObject.Find ("Board");
 		theBoard = ExtensionMethods.GetSafeComponent<Board>(tmp3);
-
-		screenLocationX = this.transform.position.x;
-		screenLocationY = this.transform.position.y;
 	}
 
 	void Update() {

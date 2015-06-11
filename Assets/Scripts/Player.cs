@@ -26,10 +26,6 @@ public class Player : Actor {
 
 	public PlayerType playerType;
 	public PlayerJob playerJob;
-	//public BoardLocation location;
-	//public HealthInfo health;
-	//public StatsInfo stats;
-	//public string actorName;
     public SpriteRenderer playerSprite;
 	public static GameObject playerObj;
 
@@ -57,8 +53,4 @@ public class Player : Actor {
 
 		return player;
 	}
-
-
-
-
 }

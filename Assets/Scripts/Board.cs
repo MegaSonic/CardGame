@@ -11,7 +11,7 @@ public class Board : Extender {
 	// (5,2) refers to the bottom right panel
 	public Panel[,] board =  new Panel[6,3];
 
-	void Start() {
+	void Awake() {
 		foreach (Panel p in (Panel[]) GameObject.FindObjectsOfType<Panel> ()) {
 			board[p.x, p.y] = p;
 

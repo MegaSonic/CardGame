@@ -9,6 +9,11 @@ using System.Linq;
 public class World : MonoBehaviour {
 	
 	private PlayerState ps;
+	private EnemyState es;
+
+	/// <summary>
+	/// The number of players found in playerlist - used to keep track of changes to the list
+	/// </summary>
 	private int psState;
 
 	/// <summary>
@@ -32,6 +37,10 @@ public class World : MonoBehaviour {
 	void Start () {
 		GameObject tmp = GameObject.Find ("PlayerState");
 		ps = ExtensionMethods.GetSafeComponent<PlayerState>(tmp);
+
+		GameObject tmp2 = GameObject.Find ("EnemyState");
+		es = ExtensionMethods.GetSafeComponent<EnemyState>(tmp2);
+
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
 
 		determineTurnOrder ();
@@ -77,6 +86,10 @@ public class World : MonoBehaviour {
 		return turnOrder;
 	}
 
+	/// <summary>
+	/// Gets the current actor.
+	/// </summary>
+	/// <returns>The current actor.</returns>
     public Actor GetCurrentActor()
     {
         return ps.playerList[turnOrder[currentTurnIndex]];
