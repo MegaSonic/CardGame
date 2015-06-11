@@ -49,7 +49,7 @@ public class PlayerState : Extender {
     /// <param name="y"></param>
     public void SetUpPlayer(Player player, Sprite sprite, int x, int y)
     {
-        player.playerSprite.sprite = sprite;
+        player.actorSprite.sprite = sprite;
         float tmpX = theBoard.board[x, y].screenLocationX;
         float tmpY = theBoard.board[x, y].screenLocationY;
         player.transform.position = new Vector3(tmpX, tmpY);

@@ -130,6 +130,7 @@ public class World : MonoBehaviour {
 				determineTurnOrder();
 		}
 
+		// handle player movement
         if (Input.GetButtonDown("Up"))
         {
             MoveActor(GetCurrentActor(), Direction.Up);
@@ -146,6 +147,12 @@ public class World : MonoBehaviour {
         {
             MoveActor(GetCurrentActor(), Direction.Down);
         }
+
+		// update health displays
+		foreach (Player p in ps.playerList)
+			p.UpdateHealthDisplay ();
+		foreach (Enemy e in es.enemyList)
+			e.UpdateHealthDisplay ();			
 	}
 
     /// <summary>

@@ -26,16 +26,16 @@ public class Player : Actor {
 
 	public PlayerType playerType;
 	public PlayerJob playerJob;
-    public SpriteRenderer playerSprite;
-	public static GameObject playerObj;
+    //public SpriteRenderer playerSprite;
+	//public static GameObject playerObj;
 
     private bool isDragging;
 	
 	public static Player CreatePlayer(int locX, int locY, int curHealth, int maxHealth, string pName, PlayerType type, 
 	                       PlayerJob job, int strength, int magic, int speed, int maxMove)
 	{
-        playerObj = Instantiate(Resources.Load("Player Object")) as GameObject;
-        Player player = playerObj.GetSafeComponent<Player>();
+        actorObj = Instantiate(Resources.Load("Player Object")) as GameObject;
+		Player player = actorObj.GetSafeComponent<Player>();
 
 		player.location = new BoardLocation(locX, locY);
 		player.health = new HealthInfo (curHealth, maxHealth);
@@ -44,12 +44,13 @@ public class Player : Actor {
 		player.playerJob = job;
 		player.stats = new StatsInfo (strength, magic, speed, maxMove);
 
-        player.playerSprite = playerObj.GetComponent<SpriteRenderer>();
+		player.actorSprite = actorObj.GetComponent<SpriteRenderer>();
 		// thisObj.playerScreenObj.AddComponent<SpriteRenderer> ();
 		// thisObj.playerScreenObj.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);		
 
-        playerObj.transform.parent = GameObject.Find("Players").transform;
-        playerObj.name = player.actorName;
+		//actorObj.transform.parent = GameObject.Find("Players").transform;
+		actorObj.transform.SetParent(GameObject.Find("Players").transform);
+		actorObj.name = player.actorName;
 
 		return player;
 	}

@@ -49,7 +49,7 @@ public class EnemyState : Extender {
 	/// <param name="y"></param>
 	public void SetUpEnemy(Enemy enemy, Sprite sprite, int x, int y)
 	{
-		enemy.enemySprite.sprite = sprite;
+		enemy.actorSprite.sprite = sprite;
 		float tmpX = theBoard.board[x, y].screenLocationX;
 		float tmpY = theBoard.board[x, y].screenLocationY;
 		enemy.transform.position = new Vector3(tmpX, tmpY);

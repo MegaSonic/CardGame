@@ -17,8 +17,12 @@ public class Actor : Extender  {
 	public StatsInfo stats;
 	public BoardLocation location;
 	public string actorName;
+	public SpriteRenderer actorSprite;
+	public static GameObject actorObj;
+
 
 	private World world;
+	private TextMesh healthDisplay;
 
     public Dictionary<EventName, ActorEvent> actorEventList = new Dictionary<EventName,ActorEvent>();
 
@@ -55,7 +59,26 @@ public class Actor : Extender  {
         }
     }
 
+	/// <summary>
+	/// Updates the health display.
+	/// </summary>
+	public void UpdateHealthDisplay()
+	{
+		if (healthDisplay == null && !InitializeHealthDisplay())
+			return;
+
+		healthDisplay.text = health.CurrentHealth.ToString();
+	}
     
+	private bool InitializeHealthDisplay()
+	{
+		healthDisplay = GetComponentInChildren<TextMesh>();
+
+		if (healthDisplay == null)
+			return false;
+		else
+			return true;
+	}
 }
 
 [System.Serializable]
