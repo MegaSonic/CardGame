@@ -24,7 +24,7 @@ public class Actor : Extender  {
 	private World world;
 	private TextMesh healthDisplay;
 
-    public Dictionary<EventName, ActorEvent> actorEventList = new Dictionary<EventName,ActorEvent>();
+    private Dictionary<EventName, ActorEvent> actorEventList = new Dictionary<EventName,ActorEvent>();
 
 
 	public void CallEndTurnEvent() {
@@ -37,16 +37,30 @@ public class Actor : Extender  {
 		GameObject tmp = GameObject.Find ("World");
 		world = ExtensionMethods.GetSafeComponent<World>(tmp);
         InitializeEvents();
-        actorEventList[EventName.Moved].AddEvent(EffectType.GainMana, 1);
+        actorEventList[EventName.Moved].AddEvent(EffectType.GainMana, 2);
 	}
 
     
-    
+    /// <summary>
+    /// Calls the event associated with the EventName e.
+    /// </summary>
+    /// <param name="e"></param>
 	public void CallActorEvent(EventName e) {
         if (actorEventList.ContainsKey(e))
         {
             actorEventList[e].CallEvent();
         }
+    }
+
+    /// <summary>
+    /// Adds a new effect to an event.
+    /// </summary>
+    /// <param name="eve">The event</param>
+    /// <param name="eff">The effect lookup type</param>
+    /// <param name="payload">Any extra parameters</param>
+    public void AddEffectToEvent(EventName eve, EffectType eff, params object[] payload)
+    {
+        actorEventList[eve].AddEvent(eff, payload);
     }
 
     /// <summary>
