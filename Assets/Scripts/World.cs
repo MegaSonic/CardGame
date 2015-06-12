@@ -244,6 +244,7 @@ public class World : MonoBehaviour {
    
                 break;
         }
+        a.CallActorEvent(EventName.Moved);
         a.stats.remainingMove -= 1;
         return true;
     }

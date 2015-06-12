@@ -30,7 +30,7 @@ public class ActorEvent {
     /// <summary>
     /// The list of events that are subscribed to this.
     /// </summary>
-    public List<EffectType> eventList;
+    public List<CustomEvent> eventList;
 
     /// <summary>
     /// Creates a new Actor Event.
@@ -38,7 +38,7 @@ public class ActorEvent {
     public ActorEvent()
     {
 
-        eventList = new List<EffectType>();
+        eventList = new List<CustomEvent>();
     }
 
     /// <summary>
@@ -46,23 +46,16 @@ public class ActorEvent {
     /// </summary>
     public void CallEvent()
     {
-        foreach (EffectType e in eventList)
+        foreach (CustomEvent e in eventList)
         {
-            EffectLookup.Lookup(e);
+            e.CallEvent();
         }
     }
 
-    /// <summary>
-    /// Overloaded operator to be able to add "methods" to an event the same way regular events would be able to
-    /// </summary>
-    /// <param name="a"></param>
-    /// <param name="effect"></param>
-    public static ActorEvent operator +(ActorEvent a, EffectType effect)
+    public void AddEvent(EffectType effect, params object[] p)
     {
-        if (effect != null)
-            a.eventList.Add(effect);
-
-        return a;
+        if (effect != null) 
+            eventList.Add(new CustomEvent(effect, p));
     }
 
 

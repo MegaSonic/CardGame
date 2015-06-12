@@ -37,6 +37,7 @@ public class Actor : Extender  {
 		GameObject tmp = GameObject.Find ("World");
 		world = ExtensionMethods.GetSafeComponent<World>(tmp);
         InitializeEvents();
+        actorEventList[EventName.Moved].AddEvent(EffectType.GainMana, 1);
 	}
 
     

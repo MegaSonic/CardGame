@@ -11,6 +11,7 @@ GameObject:
   - 223: {fileID: 22382152}
   - 114: {fileID: 11489736}
   - 114: {fileID: 11456944}
+  - 114: {fileID: 11421958}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -146,8 +147,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: onClickEndTurn
+      - m_Target: {fileID: 11421958}
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -186,6 +187,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Current Turn: '
+--- !u!114 &11421958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d82b34909ba704d9a3709e8bca9d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11428498
 MonoBehaviour:
   m_ObjectHideFlags: 1
