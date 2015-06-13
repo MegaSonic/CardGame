@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+
 public class Hand : MonoBehaviour {
 
     [SerializeField]
@@ -27,6 +28,7 @@ public class Hand : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             GameObject newCard = Instantiate(Resources.Load("cardTest")) as GameObject;
@@ -35,11 +37,7 @@ public class Hand : MonoBehaviour {
             
             newCard.GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value);
             cards.Add(newCard);
-        }
-
-        foreach (GameObject go in cards)
-        {
-            go.transform.position = Vector3.Lerp(go.transform.position, midPoint.transform.position, 0.4f);
+            LeanTween.moveX(newCard, midPoint.transform.position.x, 0.3f);
         }
 	}
 }
