@@ -37,7 +37,17 @@ public class Hand : MonoBehaviour {
             
             newCard.GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value);
             cards.Add(newCard);
-            LeanTween.moveX(newCard, midPoint.transform.position.x, 0.3f);
+
+            foreach (GameObject go in cards)
+            {
+                LeanTween.moveX(go, (midPoint.transform.position.x - ((cards.Count - 1) - cards.IndexOf(go))) * (1f/2f), 0.3f);
+            }
+            //LeanTween.moveX(newCard, midPoint.transform.position.x + (cards.Count - 1), 0.3f).setOnComplete(UpdateCardPlacement);
         }
 	}
+
+    public void UpdateCardPlacement()
+    {
+        
+    }
 }
