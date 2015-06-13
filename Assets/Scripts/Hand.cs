@@ -40,7 +40,7 @@ public class Hand : MonoBehaviour {
 
             foreach (GameObject go in cards)
             {
-                LeanTween.moveX(go, (midPoint.transform.position.x - ((cards.Count - 1) - cards.IndexOf(go))) * (1f/2f), 0.3f);
+                LeanTween.moveX(go, (midPoint.transform.position.x - ((cards.Count / 2f) - cards.IndexOf(go))), 0.3f);
             }
             //LeanTween.moveX(newCard, midPoint.transform.position.x + (cards.Count - 1), 0.3f).setOnComplete(UpdateCardPlacement);
         }
