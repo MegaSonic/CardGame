@@ -17,12 +17,17 @@ public class World : MonoBehaviour {
 	private int psState;
 
 	/// <summary>
-	/// The turn order, represented as an ordered list of the indices of players in the PlayerState's playerList.
+	/// The number of enemies found in enemylist - used to keep track of changes to the list
 	/// </summary>
-	private List<int> turnOrder;
+	private int esState;
 
 	/// <summary>
-	/// The index in turnOrder of who has the current turn.
+	/// The players and enemies participating in this battle, in turn order.
+	/// </summary>
+	private List<Actor> actorsList;
+
+	/// <summary>
+	/// The index in actorsList of who has the current turn.
 	/// </summary>
 	private int currentTurnIndex;
 
@@ -48,7 +53,7 @@ public class World : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Determines the turn order and sets turnOrder.
+	/// Determines the turn order and sets up the ActorsList
 	/// </summary>
 	private void determineTurnOrder()
 	{
@@ -56,53 +61,45 @@ public class World : MonoBehaviour {
 			Debug.LogError ("PlayerState hasn't been initialized yet");
 			return;
 		}
-
-		psState = ps.playerList.Count;
-
-		// Set up a temporary list containing KeyValuePairs (index in playerList, speed)
-		List<KeyValuePair<int, int>> temp = new List<KeyValuePair<int, int>> ();
-
-		for (int i=0; i<ps.playerList.Count; i++) {
-			int speed = ps.playerList[i].stats.speed;
-			temp.Add(new KeyValuePair<int, int>(i, speed));
+		if (es == null) {
+			Debug.LogError ("EnemyState hasn't been initialized yet");
+			return;
 		}
 
+		psState = ps.playerList.Count;
+		esState = es.enemyList.Count;
+
+		// add players and enemies to a temporary list
+		List<Actor> temp = new List<Actor> ();
+
+		foreach (Player p in ps.playerList)
+			temp.Add (p);
+		foreach (Enemy e in es.enemyList)
+			temp.Add (e);
+			
 		// Sort by speed
-		List<KeyValuePair<int, int>> tempSorted = temp.OrderByDescending (o => o.Value).ToList ();
-
-		// Set turnOrder
-		List<int> result = new List<int>();
-
-		foreach (KeyValuePair<int,int> pair in tempSorted)
-			result.Add (pair.Key);
-
-		turnOrder = result;
+		actorsList = temp.OrderByDescending (o => o.stats.speed).ToList ();
 	}
 
 	/// <summary>
-	/// Gets the turn order.
+	/// Gets the turn order / ActorsList.
 	/// </summary>
-	public List<int> getTurnOrder()	{
-		return turnOrder;
+	public List<Actor> getTurnOrder(){
+		if (actorsList == null)
+			return new List<Actor> ();
+		else
+			return actorsList;
 	}
 
 	/// <summary>
-	/// Gets the current actor.
+	/// Gets the actor whose turn it is currently.
 	/// </summary>
 	/// <returns>The current actor.</returns>
     public Actor GetCurrentActor()
-    {
-        return ps.playerList[turnOrder[currentTurnIndex]];
-    }
-
-	/// <summary>
-	/// Gets the index in the playerList of who has the current turn.
-	/// </summary>
-	/// <returns>The current turn.</returns>
-	public int getCurrentTurn(){
-		if (turnOrder.Count == 0)
-			return 0;
-		return turnOrder[currentTurnIndex];
+    {        
+		if (actorsList == null || actorsList.Count == 0)
+			return null;
+		return actorsList[currentTurnIndex];
 	}
 
 	/// <summary>
@@ -113,10 +110,10 @@ public class World : MonoBehaviour {
 
 		// loop back around - 
 		//  reset remaining moves for each player
-		if (currentTurnIndex >= turnOrder.Count) {
+		if (currentTurnIndex >= actorsList.Count) {
 			currentTurnIndex = 0;
-			foreach (Player p in ps.playerList)			
-				p.stats.remainingMove = p.stats.maxMove;
+			foreach (Actor a in actorsList)			
+				a.stats.remainingMove = a.stats.maxMove;
 		}
 	}
 
@@ -124,42 +121,39 @@ public class World : MonoBehaviour {
 	/// Update this instance.
 	/// </summary>
 	void Update () {	
-		// re-initialize if the playerList has changed
+		// re-initialize if the playerList or enemyList has changed
 		if (ps != null) {
 			if (ps.playerList.Count != psState)
 				determineTurnOrder();
 		}
-
-		// handle player movement
-        if (Input.GetButtonDown("Up"))
-        {
-            MoveActor(GetCurrentActor(), Direction.Up);
-        }
-        else if (Input.GetButtonDown("Left"))
-        {
-            MoveActor(GetCurrentActor(), Direction.Left);
-        }
-        else if (Input.GetButtonDown("Right"))
-        {
-            MoveActor(GetCurrentActor(), Direction.Right);
-        }
-        else if (Input.GetButtonDown("Down"))
-        {
-            MoveActor(GetCurrentActor(), Direction.Down);
-        }
-
+		if (es != null) {
+			if (es.enemyList.Count != esState)
+				determineTurnOrder();
+		}
+		
 		// update health displays
-		foreach (Player p in ps.playerList)
-			p.UpdateHealthDisplay ();
-		foreach (Enemy e in es.enemyList)
-			e.UpdateHealthDisplay ();			
+		if (actorsList != null)
+			foreach (Actor a in actorsList)
+				a.UpdateHealthDisplay ();
+
+		if (GetCurrentActor() is Player) {
+			// handle player movement
+			if (Input.GetButtonDown ("Up")) {
+				MoveActor (GetCurrentActor (), Direction.Up);
+			} else if (Input.GetButtonDown ("Left")) {
+				MoveActor (GetCurrentActor (), Direction.Left);
+			} else if (Input.GetButtonDown ("Right")) {
+				MoveActor (GetCurrentActor (), Direction.Right);
+			} else if (Input.GetButtonDown ("Down")) {
+				MoveActor (GetCurrentActor (), Direction.Down);
+			}
+		}
 	}
 
     /// <summary>
-    /// Determines whether this panel is adjacent the specified player.
+    /// Determines whether the two given Panels are adjacent
     /// </summary>
-    /// <returns><c>true</c> if this instance is adjacent the specified p; otherwise, <c>false</c>.</returns>
-    /// <param name="p">Player.</param>
+    /// <returns><c>true</c> if the Panels are adjacent; otherwise, <c>false</c>.</returns>
     public static bool ArePanelsAdjacent(Panel p1, Panel p2)
     {
         int diffX = Mathf.Abs(p1.x - p2.x);
@@ -330,5 +324,4 @@ public class World : MonoBehaviour {
         return true;
     }
 }
-
 

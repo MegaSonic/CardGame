@@ -43,8 +43,8 @@ public class TurnOrderDisplay : MonoBehaviour {
 	void DisplayTurnOrder()
 	{
 		txt.text = "Turn order: | ";
-		foreach (int i in world.getTurnOrder()){
-			txt.text += ps.playerList[i].actorName + " | ";
+		foreach (Actor a in world.getTurnOrder()){
+			txt.text += a.ToString () + " | ";
 		}
 	}
 

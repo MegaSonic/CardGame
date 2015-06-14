@@ -45,12 +45,12 @@ public class TurnDisplay : MonoBehaviour {
 		if (ps.playerList.Count == 0)
 			return;
 
-		int turnIndex = world.getCurrentTurn ();
-		Player p = ps.playerList [turnIndex];
-		string name = p.actorName;
-		int moves = p.stats.remainingMove;
-
-		txt.text = "Current turn: " + name + " Moves left: " + moves;
+		Actor current = world.GetCurrentActor ();
+		if (current != null) {
+			string name = current.ToString ();
+			int moves = current.stats.remainingMove;		
+			txt.text = "Current turn: " + name + " Moves left: " + moves;
+		}
 	}
 
 }

@@ -94,6 +94,11 @@ public class Actor : Extender  {
 		else
 			return true;
 	}
+
+	public override string ToString ()
+	{
+		return actorName;
+	}
 }
 
 [System.Serializable]
