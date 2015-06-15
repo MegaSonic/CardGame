@@ -1,20 +1,84 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Represents a panel on the game board.
+/// </summary>
 public class Panel : Extender {
 
+	/// <summary>
+	/// The panel's x coordinate.
+	/// Public so as to appear in the inspector
+	/// </summary>
 	public int x;
+
+	/// <summary>
+	/// The panel's y coordinate.
+	/// Public so as to appear in the inspector
+	/// </summary>
 	public int y;
 
-	public float screenLocationX;
-	public float screenLocationY;
+	/// <summary>
+	/// The x value of the panel's screen location.
+	/// </summary>
+	private float _screenLocationX;
 
+	/// <summary>
+	/// The y value of the panel's screen location.
+	/// </summary>
+	private float _screenLocationY;
+
+	/// <summary>
+	/// Gets or sets the screen location x value.
+	/// </summary>
+	/// <value>The screen location x.</value>
+	public float screenLocationX {
+		get {
+			return _screenLocationX;
+		}
+		private set {
+			_screenLocationX = value;
+		}
+	}
+
+	/// <summary>
+	/// Gets or sets the screen location y.
+	/// </summary>
+	/// <value>The screen location y.</value>
+	public float screenLocationY {
+		get {
+			return _screenLocationY;
+		}
+		private set {
+			_screenLocationY = value;
+		}
+	}
+
+	/// <summary>
+	/// Indicates who controls this panel.
+	/// Public so as to appear in the inspector
+	/// </summary>
     public WhoCanUse Owner;
+	    
+	/// <summary>
+	/// The actor occupying this panel - null if no unit is in panel.
+	/// </summary>
+    private Actor _Unit;
 
-    // Null if no unit is in panel
-    public Actor Unit;
+	/// <summary>
+	/// Gets or sets the unit.
+	/// </summary>
+	/// <value>The unit.</value>
+	public Actor Unit {
+		get {
+			return _Unit;
+		}
+		set {
+			_Unit = value;
+		}
+	}
 
-	/// Who is allowed to move onto this panel
+	/// Represents the possible parties that can control a panel.
 	public enum WhoCanUse {
 		Player = 1,
 		Enemy = 2,
@@ -22,24 +86,26 @@ public class Panel : Extender {
 	}
 
 	private SpriteRenderer sprite;
-	private World world;
+	private Battle battle;
 	private PlayerState ps;
 	private Board theBoard;
 
-	private float doubleClickSensitivity = 0.3f;
-	private float clickTime = 0f;
-
+	/// <summary>
+	/// Awake this instance.
+	/// </summary>
 	void Awake() {
 		screenLocationX = this.transform.position.x;
 		screenLocationY = this.transform.position.y;
-
 	}
 
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
 	void Start() {
 		sprite = GetComponent<SpriteRenderer> ();
 
-		GameObject tmp = GameObject.Find ("World");
-		world = ExtensionMethods.GetSafeComponent<World>(tmp);
+		GameObject tmp = GameObject.Find ("Battle");
+		battle = ExtensionMethods.GetSafeComponent<Battle>(tmp);
 		
 		GameObject tmp2 = GameObject.Find ("PlayerState");
 		ps = ExtensionMethods.GetSafeComponent<PlayerState>(tmp2);
@@ -48,7 +114,13 @@ public class Panel : Extender {
 		theBoard = ExtensionMethods.GetSafeComponent<Board>(tmp3);
 	}
 
+	/// <summary>
+	/// Update this instance.
+	/// </summary>
 	void Update() {
+
+		// apply color based on whocanuse
+
 		switch (Owner) {
 		case WhoCanUse.Player:
 			sprite.color = Color.blue;
@@ -60,87 +132,5 @@ public class Panel : Extender {
 			sprite.color = Color.grey;
 			break;
 		}
-	}
-
-	/// <summary>
-	/// Raises the mouse up event.
-	/// </summary>
-	void OnMouseUp()
-	{
-		/*
-		if ((Time.time - clickTime) < doubleClickSensitivity) {
-			OnDoubleClick ();
-			clickTime = -1f;
-		} else {
-			clickTime = Time.time;
-		}
-	*/
-	}
-
-    void OnMouseDown()
-    {
-
-    }
-
-	/// <summary>
-	/// Raises the double click event.
-	/// </summary>
-	void OnDoubleClick()
-	{
-		/*
-		if (Owner == WhoCanUse.Player && Unit == null)
-			MoveCurrentPlayerIntoMe ();
-			*/
-	}
-
-	/// <summary>
-	/// Moves the current player into this panel.
-	/// </summary>
-	private void MoveCurrentPlayerIntoMe()
-	{
-		/*
-		Player curPlayer = ps.playerList[world.getCurrentTurn()];
-
-		// if player isn't adjacent, don't move
-		if (!IsAdjacent (curPlayer))
-			return;
-
-		// if player can't move, don't
-		if (curPlayer.stats.remainingMove <= 0)
-			return;
-		else
-			curPlayer.stats.remainingMove -= 1;
-		
-		// remove player from it's previous panel
-		BoardLocation oldLoc = curPlayer.location;
-		Panel oldPanel = theBoard.board [oldLoc.x, oldLoc.y];
-		oldPanel.Unit = null;
-
-		// move player into this panel
-		curPlayer.location = new BoardLocation (x, y);
-		curPlayer.transform.position = new Vector3 (screenLocationX, screenLocationY, 0);
-		Unit = curPlayer;
-		*/
-	}
-	 
-	/// <summary>
-	/// Determines whether this panel is adjacent the specified player.
-	/// </summary>
-	/// <returns><c>true</c> if this instance is adjacent the specified p; otherwise, <c>false</c>.</returns>
-	/// <param name="p">Player.</param>
-	public bool IsAdjacent(Player p)
-	{
-		// get player's x and y values
-		int pX = p.location.x;
-		int pY = p.location.y;
-
-		int diffX = Mathf.Abs (pX - x);
-		int diffY = Mathf.Abs (pY - y);
-		
-		if (diffX + diffY != 1)
-			return false;
-		else
-			return true;
-	}
-
+	}	 
 }

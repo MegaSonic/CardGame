@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Maintains Player state information across Battles.
+/// </summary>
 public class PlayerState : Extender {
 
 	public List<Player> playerList;

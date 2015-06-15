@@ -8,13 +8,13 @@ public class TurnOrderDisplay : MonoBehaviour {
 
 	private Text txt;
 
-	private World world;
+	private Battle battle;
 	private PlayerState ps;
 
 	// Use this for initialization
 	void Start () {
-		GameObject tmp = GameObject.Find ("World");
-		world = ExtensionMethods.GetSafeComponent<World>(tmp);
+		GameObject tmp = GameObject.Find ("Battle");
+		battle = ExtensionMethods.GetSafeComponent<Battle>(tmp);
 
 		GameObject tmp2 = GameObject.Find ("PlayerState");
 		ps = ExtensionMethods.GetSafeComponent<PlayerState>(tmp2);
@@ -43,7 +43,7 @@ public class TurnOrderDisplay : MonoBehaviour {
 	void DisplayTurnOrder()
 	{
 		txt.text = "Turn order: | ";
-		foreach (Actor a in world.getTurnOrder()){
+		foreach (Actor a in battle.getTurnOrder()){
 			txt.text += a.ToString () + " | ";
 		}
 	}

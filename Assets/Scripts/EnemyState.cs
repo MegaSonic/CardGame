@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Maintains Enemy state information across Battles.
+/// </summary>
 public class EnemyState : Extender {
 	
 	public List<Enemy> enemyList;

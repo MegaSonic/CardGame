@@ -4,6 +4,9 @@ using UnityEditor;
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// Direction.
+/// </summary>
 public enum Direction {
     Up = 0,
     Left = 1,
@@ -11,22 +14,102 @@ public enum Direction {
     Down = 3
 }
 
+/// <summary>
+/// Actor.
+/// </summary>
 [System.Serializable]
 public class Actor : Extender  {
-	public HealthInfo health;
-	public StatsInfo stats;
-	public BoardLocation location;
-	public string actorName;
-	public SpriteRenderer actorSprite;
-	public static GameObject actorObj;
 
+	/// <summary>
+	/// The actor's health information.
+	/// </summary>
+	private HealthInfo _health;
 
-	private World world;
+	/// <summary>
+	/// Gets or sets the health.
+	/// </summary>
+	/// <value>The health.</value>
+	public HealthInfo health {
+		get {
+			return _health;
+		}
+		set {
+			_health = value;
+		}
+	}
+
+	/// <summary>
+	/// The actor's stats information.
+	/// </summary>
+	private StatsInfo _stats;
+
+	/// <summary>
+	/// Gets or sets the stats.
+	/// </summary>
+	/// <value>The stats.</value>
+	public StatsInfo stats {
+		get {
+			return _stats;
+		}
+		set {
+			_stats = value;
+		}
+	}
+
+	/// <summary>
+	/// The actor's location on the game board.
+	/// </summary>
+	private BoardLocation _location;
+
+	/// <summary>
+	/// Gets or sets the location.
+	/// </summary>
+	/// <value>The location.</value>
+	public BoardLocation location {
+		get {
+			return _location;
+		}
+		set {
+			_location = value;
+		}
+	}
+
+	/// <summary>
+	/// The name of the actor.
+	/// </summary>
+	protected string actorName;
+
+	/// <summary>
+	/// The actor's sprite.
+	/// </summary>
+	private SpriteRenderer _actorSprite;
+
+	/// <summary>
+	/// Gets or sets the actor sprite.
+	/// </summary>
+	/// <value>The actor sprite.</value>
+	public SpriteRenderer actorSprite {
+		get {
+			return _actorSprite;
+		}
+		set {
+			_actorSprite = value;
+		}
+	}
+
+	/// <summary>
+	/// The actor object.
+	/// </summary>
+	protected static GameObject actorObj;
+
+	private Battle battle;
 	private TextMesh healthDisplay;
 
     private Dictionary<EventName, ActorEvent> actorEventList = new Dictionary<EventName,ActorEvent>();
 
-
+	/// <summary>
+	/// Calls the end turn event.
+	/// </summary>
 	public void CallEndTurnEvent() {
         CallActorEvent(EventName.EndedTurn);
 	}
@@ -34,8 +117,8 @@ public class Actor : Extender  {
 	void Start() {
 		// events = this.gameObject.GetComponent<ActorEvents> ();
 
-		GameObject tmp = GameObject.Find ("World");
-		world = ExtensionMethods.GetSafeComponent<World>(tmp);
+		GameObject tmp = GameObject.Find ("Battle");
+		battle = ExtensionMethods.GetSafeComponent<Battle>(tmp);
         InitializeEvents();
         actorEventList[EventName.Moved].AddEvent(EffectType.GainMana, 2);
 	}
@@ -85,6 +168,10 @@ public class Actor : Extender  {
 		healthDisplay.text = health.CurrentHealth.ToString();
 	}
     
+	/// <summary>
+	/// Initializes the health display.
+	/// </summary>
+	/// <returns><c>true</c>, if health display was initialized, <c>false</c> otherwise.</returns>
 	private bool InitializeHealthDisplay()
 	{
 		healthDisplay = GetComponentInChildren<TextMesh>();
@@ -95,16 +182,42 @@ public class Actor : Extender  {
 			return true;
 	}
 
+	/// <summary>
+	/// Returns a string that represents the current object.
+	/// </summary>
+	/// <returns>A string that represents the current object.</returns>
+	/// <filterpriority>2</filterpriority>
 	public override string ToString ()
 	{
 		return actorName;
 	}
 }
 
+/// <summary>
+/// Board location.
+/// </summary>
 [System.Serializable]
 public class BoardLocation {
-	public int x;
-	public int y;
+
+	private int _x;
+	public int x {
+		get {
+			return _x;
+		}
+		set {
+			_x = value;
+		}
+	}
+
+	private int _y;
+	public int y {
+		get {
+			return _y;
+		}
+		set {
+			_y = value;
+		}
+	}
 
 	public BoardLocation(int x, int y)
 	{
@@ -113,6 +226,9 @@ public class BoardLocation {
 	}
 }
 
+/// <summary>
+/// Health info.
+/// </summary>
 [System.Serializable]
 public class HealthInfo {
 	[SerializeField]

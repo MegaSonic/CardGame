@@ -6,8 +6,11 @@ using System.Linq;
 /// <summary>
 /// Keeps track of global game rules such as turn order.
 /// </summary>
-public class World : MonoBehaviour {
-	
+public class Battle : MonoBehaviour {
+
+	/// <summary>
+	/// The PlayerState - Should be loaded in at the beginning and saved to at the end.
+	/// </summary>
 	private PlayerState ps;
 	private EnemyState es;
 
