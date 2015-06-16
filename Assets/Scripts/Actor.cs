@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
@@ -191,6 +191,19 @@ public class Actor : Extender  {
 	{
 		return actorName;
 	}
+
+	/// <summary>
+	/// Reduces health by given damage amount.
+	/// </summary>
+	/// <param name="damageAmt">Damage amount.</param>
+	public void TakeDamage(int damageAmt) 
+	{
+		health.CurrentHealth -= damageAmt;
+
+		if (health.CurrentHealth == 0) {
+			battle.RemoveActor(this);
+		}
+	}
 }
 
 /// <summary>
@@ -246,7 +259,10 @@ public class HealthInfo {
 		{
 			if (value > maxHealth)
 				currentHealth = maxHealth;
-			currentHealth = value;
+			else if (value < 0)
+				currentHealth = 0;
+			else
+				currentHealth = value;
 		}
 	}
 

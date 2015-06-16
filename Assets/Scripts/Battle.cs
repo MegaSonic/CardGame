@@ -139,7 +139,9 @@ public class Battle : MonoBehaviour {
 			foreach (Actor a in actorsList)
 				a.UpdateHealthDisplay ();
 
-		if (GetCurrentActor() is Player) {
+		Actor current = GetCurrentActor ();
+
+		if (current is Player) {
 			// handle player movement
 			if (Input.GetButtonDown ("Up")) {
 				MoveActor (GetCurrentActor (), Direction.Up);
@@ -151,6 +153,15 @@ public class Battle : MonoBehaviour {
 				MoveActor (GetCurrentActor (), Direction.Down);
 			}
 		}
+
+		// FOR TESTING PURPOSES ONLY:
+		//  enemies take a random amount (1-50) of damage and end their turn
+		else if (current is Enemy) {
+			int damage = Random.Range(1, 50);
+			current.TakeDamage(damage);
+			changeTurns();
+		}
+
 	}
 
     /// <summary>
@@ -326,5 +337,21 @@ public class Battle : MonoBehaviour {
         a2.transform.position = new Vector3(board.board[a2.location.x, a2.location.y].screenLocationX, board.board[a2.location.x, a2.location.y].screenLocationY, 0);
         return true;
     }
+
+	/// <summary>
+	/// Removes the actor from the game.
+	/// </summary>
+	/// <param name="a">The alpha component.</param>
+	public void RemoveActor(Actor a)
+	{
+		if (actorsList.Contains (a)) {
+			// remove actor from panel it was in
+			board.board[a.location.x, a.location.y].Unit = null;
+			// remove actor from our list
+			actorsList.Remove (a);
+			// destroy the actor
+			UnityEngine.Object.Destroy (a.gameObject);
+		}
+	}
 }
 
