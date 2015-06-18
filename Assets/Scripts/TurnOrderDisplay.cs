@@ -44,7 +44,8 @@ public class TurnOrderDisplay : MonoBehaviour {
 	{
 		txt.text = "Turn order: | ";
 		foreach (Actor a in battle.getTurnOrder()){
-			txt.text += a.ToString () + " | ";
+            if (a != null) 
+			    txt.text += a.ToString () + " | ";
 		}
 	}
 
