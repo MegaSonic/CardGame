@@ -20,6 +20,7 @@ public enum Direction {
 [System.Serializable]
 public class Actor : Extender  {
 
+    [SerializeField]
 	/// <summary>
 	/// The actor's health information.
 	/// </summary>
@@ -38,6 +39,7 @@ public class Actor : Extender  {
 		}
 	}
 
+    [SerializeField]
 	/// <summary>
 	/// The actor's stats information.
 	/// </summary>
@@ -56,6 +58,7 @@ public class Actor : Extender  {
 		}
 	}
 
+    [SerializeField]
 	/// <summary>
 	/// The actor's location on the game board.
 	/// </summary>
@@ -74,11 +77,13 @@ public class Actor : Extender  {
 		}
 	}
 
+    [SerializeField]
 	/// <summary>
 	/// The name of the actor.
 	/// </summary>
 	protected string actorName;
 
+    [SerializeField]
 	/// <summary>
 	/// The actor's sprite.
 	/// </summary>

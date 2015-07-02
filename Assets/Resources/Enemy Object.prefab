@@ -27,6 +27,7 @@ GameObject:
   - 4: {fileID: 446402}
   - 114: {fileID: 11495024}
   - 212: {fileID: 21252090}
+  - 114: {fileID: 11448540}
   m_Layer: 0
   m_Name: Enemy Object
   m_TagString: Untagged
@@ -92,6 +93,18 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294961152
+--- !u!114 &11448540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013691340b1b92e4fad9155cde4e6a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiStyle: 0
 --- !u!114 &11495024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,20 +116,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c74d75a5744304a9fe67be83929080, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health:
-    currentHealth: 80
-    maxHealth: 80
-  stats:
-    strength: 5
-    magic: 17
-    speed: 8
+  _health:
+    currentHealth: 0
+    maxHealth: 0
+  _stats:
+    strength: 0
+    magic: 0
+    speed: 0
     maxMove: 0
     remainingMove: 0
-  location:
-    x: 5
-    y: 2
   actorName: enemy 3
-  actorSprite: {fileID: 0}
+  _actorSprite: {fileID: 0}
 --- !u!212 &21252090
 SpriteRenderer:
   m_ObjectHideFlags: 1
