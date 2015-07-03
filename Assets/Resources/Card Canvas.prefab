@@ -113,6 +113,7 @@ GameObject:
   - 223: {fileID: 22319864}
   - 114: {fileID: 11459298}
   - 114: {fileID: 11406972}
+  - 61: {fileID: 6192440}
   m_Layer: 5
   m_Name: Card Canvas
   m_TagString: Untagged
@@ -137,6 +138,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &6192440
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166540}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: .189331055, y: .28317073}
+  serializedVersion: 2
+  m_Size: {x: 97.40802, y: 152.095352}
 --- !u!114 &11404512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -537,7 +551,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -10.5299997, y: -2.0999999}
+  m_AnchoredPosition: {x: -13.7299995, y: -2.79999995}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000

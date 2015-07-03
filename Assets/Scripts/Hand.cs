@@ -19,10 +19,13 @@ public class Hand : MonoBehaviour {
 
     private List<GameObject> cards;
 
+    private int drawnCardsIndex;
+
 	// Use this for initialization
 	void Start () {
         hand = this.gameObject;
         cards = new List<GameObject>();
+        drawnCardsIndex = 0;
 	}
 	
 	// Update is called once per frame
@@ -34,7 +37,17 @@ public class Hand : MonoBehaviour {
             GameObject newCard = Instantiate(Resources.Load("Card Canvas")) as GameObject;
             //newCard.transform.SetParent(this.transform, false);
             newCard.transform.position = spawnPoint.position;
+
+            // giving it an id number for easier identification during testing            
+            newCard.name = "Card Canvas: " + drawnCardsIndex.ToString();
             
+            // set up correct layer order (to properly allow for mouse over)
+            Canvas ncCanv = newCard.GetComponent<Canvas>();
+            ncCanv.sortingOrder = drawnCardsIndex;
+
+            // increment index
+            drawnCardsIndex++;
+
             newCard.GetComponentInChildren<Image>().color = new Color(Random.value, Random.value, Random.value);
             cards.Add(newCard);
 
