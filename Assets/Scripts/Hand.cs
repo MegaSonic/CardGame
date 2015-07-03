@@ -31,11 +31,11 @@ public class Hand : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            GameObject newCard = Instantiate(Resources.Load("cardTest")) as GameObject;
-            newCard.transform.SetParent(this.transform, false);
+            GameObject newCard = Instantiate(Resources.Load("Card Canvas")) as GameObject;
+            //newCard.transform.SetParent(this.transform, false);
             newCard.transform.position = spawnPoint.position;
             
-            newCard.GetComponent<Image>().color = new Color(Random.value, Random.value, Random.value);
+            newCard.GetComponentInChildren<Image>().color = new Color(Random.value, Random.value, Random.value);
             cards.Add(newCard);
 
             foreach (GameObject go in cards)
