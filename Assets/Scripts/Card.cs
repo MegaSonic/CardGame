@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEditor;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Card : Extender {
 
@@ -26,6 +27,9 @@ public class Card : Extender {
 	/// The card ID. Might be useful when building decks.
 	/// </summary>
 	public int cardID;
+
+    public PlayerType characterRestriction;
+    public PlayerJob jobRestriction;
 
 	/// <summary>
 	/// The name of the card.
@@ -59,15 +63,27 @@ public class Card : Extender {
 	[HideInInspector]
 	public List<Actor> storeTargets;
 
+    public Text cardNameUI;
+    public Text manaTextUI;
+    public Text cardDescUI;
+
 	// Use this for initialization
 	void Start () {
-	
+        StartCoroutine("UpdateUI");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    IEnumerator UpdateUI()
+    {
+        cardNameUI.text = cardName;
+        manaTextUI.text = manaCost.ToString();
+        cardDescUI.text = cardText;
+        yield return new WaitForSeconds(0.2f);
+    }
 
 	[System.Serializable]
 	public class PotencyInfo {
