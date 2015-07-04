@@ -54,7 +54,6 @@ public class ActorEvent {
 
     public void AddEvent(EffectType effect, params object[] p)
     {
-        if (effect != null) 
             eventList.Add(new CustomEvent(effect, p));
     }
 
