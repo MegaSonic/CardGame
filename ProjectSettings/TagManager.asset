@@ -6,6 +6,7 @@ TagManager:
   tags:
   - World
   - Board
+  - Card
   layers:
   - Default
   - TransparentFX
