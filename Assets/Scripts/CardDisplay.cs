@@ -42,7 +42,7 @@ public class CardDisplay : MonoBehaviour {
         }
         else
         {
-            print("");
+            //print("");
             canvas.enabled = false;
         }
 	}

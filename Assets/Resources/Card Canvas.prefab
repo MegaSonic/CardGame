@@ -223,9 +223,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885bc7d23d03e494e835e0d3c4700258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardNameUI: {fileID: 0}
-  manaTextUI: {fileID: 0}
-  cardDescUI: {fileID: 0}
+  cardNameUI: {fileID: 11431586}
+  manaTextUI: {fileID: 11404512}
+  cardDescUI: {fileID: 11494006}
 --- !u!114 &11417206
 MonoBehaviour:
   m_ObjectHideFlags: 1

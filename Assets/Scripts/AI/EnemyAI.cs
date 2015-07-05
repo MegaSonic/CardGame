@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour {
 
     public AIStyle aiStyle;
     public List<Card> usableCards;
-    public int movesPerTurn;
+    public int movesPerTurn = 1;
 
     [HideInInspector]
     public Card nextCardToUse;
@@ -54,31 +54,37 @@ public class EnemyAI : MonoBehaviour {
                 for (int i = enemy.location.x + 1; i <= 5; i++) 
                 {
                     // If there's an enemy in the same row, don't move
-                    if (board.board[i, enemy.location.y].Unit != null)
+                    if (board.board[i, enemy.location.y].Unit != null && board.board[i, enemy.location.y].Unit is Player)
                     {
                         return newLocation;
                     }
+                }
                     // Otherwise, find the enemy in the highest row and move closer to it
-                    else
+                for (int i = enemy.location.x + 1; i <= 5; i++)
+                {
+                    for (int j = 0; j <= 2; j++)
                     {
-                        for (int j = 0; j <= 2; j++)
+                        if (board.board[i, j].Unit != null && board.board[i, j].Unit is Player)
                         {
-                            if (board.board[i, j].Unit != null)
+                            if (enemy.location.y > j)
                             {
-                                if (enemy.location.y > j)
-                                    newLocation.y--;
-                                else if (enemy.location.y < j)
-                                    newLocation.y++;
+                                newLocation.y--;
+                                return newLocation;
+                            }
+                            else if (enemy.location.y < j)
+                            {
+                                newLocation.y++;
+                                return newLocation;
                             }
                         }
                     }
                 }
+                
 
-                nextCardToUse = usableCards[Random.Range(0, usableCards.Count)];
+                // nextCardToUse = usableCards[Random.Range(0, usableCards.Count)];
                 break;
 
 
-                // Similar to Mettaurs from Battle Network. Stays in one column, follows the closest enemy.
             case AIStyle.Teleport:
                 List<Panel> movablePanels = new List<Panel>();
 
@@ -101,6 +107,7 @@ public class EnemyAI : MonoBehaviour {
                 break;
         }
 
+        Debug.Log(newLocation.x + ", " + newLocation.y);
         return newLocation;
     }
 }

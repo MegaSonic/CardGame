@@ -157,6 +157,14 @@ public class Battle : MonoBehaviour {
 		// FOR TESTING PURPOSES ONLY:
 		//  enemies take a random amount (1-50) of damage and end their turn
 		else if (current is Enemy) {
+            EnemyAI ai = current.GetComponent<EnemyAI>();
+
+            for (int i = 0; i < ai.movesPerTurn; i++)
+            {
+                BoardLocation newLocation = ai.RunAIRoutine();
+                MoveActorToPanel(current, newLocation);
+            }
+
 			int damage = Random.Range(1, 50);
 			current.TakeDamage(damage);
 			changeTurns();
@@ -254,6 +262,24 @@ public class Battle : MonoBehaviour {
         }
         a.CallActorEvent(EventName.Moved);
         a.stats.remainingMove -= 1;
+        return true;
+    }
+
+    /// <summary>
+    /// Will move an actor to a new location, if possible. More for enemies to use than allies.
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="newLocation"></param>
+    /// <returns></returns>
+    public bool MoveActorToPanel(Actor a, BoardLocation newLocation)
+    {
+        if (board.board[newLocation.x, newLocation.y].Unit != null) return false; 
+
+        board.board[a.location.x, a.location.y].Unit = null;
+        a.location.x = newLocation.x;
+        a.location.y = newLocation.y;
+        board.board[a.location.x, a.location.y].Unit = a;
+        a.transform.position = new Vector3(board.board[a.location.x, a.location.y].screenLocationX, board.board[a.location.x, a.location.y].screenLocationY, 0);
         return true;
     }
 
