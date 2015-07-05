@@ -7,6 +7,9 @@ TagManager:
   - World
   - Board
   - Card
+  - CardName
+  - ManaCost
+  - CardInfo
   layers:
   - Default
   - TransparentFX
