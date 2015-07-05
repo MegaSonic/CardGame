@@ -114,6 +114,7 @@ GameObject:
   - 114: {fileID: 11459298}
   - 114: {fileID: 11406972}
   - 61: {fileID: 6192440}
+  - 114: {fileID: 11415144}
   m_Layer: 5
   m_Name: Card Canvas
   m_TagString: Card
@@ -133,6 +134,22 @@ GameObject:
   - 114: {fileID: 11404512}
   m_Layer: 5
   m_Name: text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &198172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22423200}
+  - 114: {fileID: 11462780}
+  m_Layer: 5
+  m_Name: cardScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,6 +212,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &11415144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885bc7d23d03e494e835e0d3c4700258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardNameUI: {fileID: 0}
+  manaTextUI: {fileID: 0}
+  cardDescUI: {fileID: 0}
 --- !u!114 &11417206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,6 +315,34 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &11462780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740735a45fe56c1478607ea7edd86e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardID: 0
+  characterRestriction: 0
+  jobRestriction: 0
+  cardName: 
+  manaCost: 0
+  cardText: 
+  cardKeywords: 
+  cardActions:
+  - useStoreTargets: 0
+    storeTargets: 0
+    targetID: 0
+    usePotency: 0
+    potencyInfo:
+      potency: 0
+      potencyStat: 0
+    effectID: 0
+  storeTargets: []
 --- !u!114 &11474598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -448,6 +507,23 @@ RectTransform:
   m_AnchoredPosition: {x: 2, y: 5.19999981}
   m_SizeDelta: {x: 58, y: 50.5}
   m_Pivot: {x: .5, y: .5}
+--- !u!224 &22423200
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198172}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22489210}
+  m_RootOrder: 1
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 47.894001, y: 227.502075}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: .5, y: .5}
 --- !u!224 &22423410
 RectTransform:
   m_ObjectHideFlags: 1
@@ -547,6 +623,7 @@ RectTransform:
   m_LocalScale: {x: .0193423592, y: .0193423592, z: .0193423592}
   m_Children:
   - {fileID: 22409390}
+  - {fileID: 22423200}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}

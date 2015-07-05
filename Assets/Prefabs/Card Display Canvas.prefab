@@ -96,6 +96,7 @@ GameObject:
   - 223: {fileID: 22340264}
   - 114: {fileID: 11470136}
   - 114: {fileID: 11465266}
+  - 114: {fileID: 11498880}
   m_Layer: 5
   m_Name: Card Display Canvas
   m_TagString: Untagged
@@ -338,6 +339,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11498880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a21029bcf3f5484e90af3cf1ce59812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &22211248
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -386,7 +398,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185934}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_RenderMode: 2
   m_Camera: {fileID: 0}

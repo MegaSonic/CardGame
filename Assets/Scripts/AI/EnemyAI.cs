@@ -4,15 +4,24 @@ using System.Collections.Generic;
 
 public enum AIStyle
 {
-    DontMove = 0,
-    Teleport = 1,
-    StayInColumnAndFollowClosestEnemy = 2
+    Mettaur = 0,
+    Cannondumb = 1,
+    Teleport = 2
 }
 
 
 public class EnemyAI : MonoBehaviour {
 
     public AIStyle aiStyle;
+    public List<Card> usableCards;
+    public int movesPerTurn;
+
+    [HideInInspector]
+    public Card nextCardToUse;
+    
+
+
+    private int round = 1;
 
     private Enemy enemy;
     private Board board;
@@ -33,18 +42,15 @@ public class EnemyAI : MonoBehaviour {
     /// Returns where this enemy's AIStyle decides it should move
     /// </summary>
     /// <returns>A board location with its new location</returns>
-    public BoardLocation DetermineMove()
+    public BoardLocation RunAIRoutine()
     {
         BoardLocation newLocation = new BoardLocation(enemy.location.x, enemy.location.y);
 
         switch (aiStyle)
         {
-                // Won't move at all
-            case AIStyle.DontMove:
-                break;
-
-                // Similar to Mettaurs from Battle Network. Stays in one column, follows the closest enemy.
-            case AIStyle.StayInColumnAndFollowClosestEnemy:
+                // Stays in column, follows closest enemy. Two cards, Fight and Shockwave
+            case AIStyle.Mettaur:
+                
                 for (int i = enemy.location.x + 1; i <= 5; i++) 
                 {
                     // If there's an enemy in the same row, don't move
@@ -67,8 +73,12 @@ public class EnemyAI : MonoBehaviour {
                         }
                     }
                 }
+
+                nextCardToUse = usableCards[Random.Range(0, usableCards.Count)];
                 break;
-            // Moves to a random square that is unoccupied and is a Enemy square
+
+
+                // Similar to Mettaurs from Battle Network. Stays in one column, follows the closest enemy.
             case AIStyle.Teleport:
                 List<Panel> movablePanels = new List<Panel>();
 
@@ -82,6 +92,12 @@ public class EnemyAI : MonoBehaviour {
                 Panel randomPanel = movablePanels[Random.Range(0, movablePanels.Count - 1)];
                 newLocation.x = randomPanel.x;
                 newLocation.y = randomPanel.y;
+                break;
+
+
+            // Doesn't move, one card, Cannon
+            case AIStyle.Cannondumb:
+                nextCardToUse = usableCards[Random.Range(0, usableCards.Count)];
                 break;
         }
 

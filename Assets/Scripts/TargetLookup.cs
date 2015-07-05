@@ -8,15 +8,23 @@ public enum TargetType
     WideSword = 1,
     LongSword = 2,
     Shockwave = 3,
-    Cannon = 4
+    Cannon = 4,
+    RandomEnemy = 5
 }
 
 /// <summary>
 /// A static class that handles all the different targetting methods for various cards.
 /// </summary>
-public static class TargetLookup {
+public class TargetLookup : Extender {
 
-	
+    public Battle battle;
+    public Board field;
+
+    void Start()
+    {
+        battle = GameObject.FindGameObjectWithTag("World").GetComponent<Battle>();
+        field = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
+    }
 
 	// This will return all actors in the area of effect
 	// If you want it to "smart cast", aka not hit player units if cast by a player
@@ -100,6 +108,16 @@ public static class TargetLookup {
                     }
                 }
 
+                break;
+            case TargetType.RandomEnemy:
+                if (cardUser is Player)
+                {
+                    
+                }
+                else if (cardUser is Enemy)
+                {
+
+                }
                 break;
         }
     }

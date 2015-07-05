@@ -63,32 +63,11 @@ public class Card : Extender {
 	[HideInInspector]
 	public List<Actor> storeTargets;
 
-    public Text cardNameUI;
-    public Text manaTextUI;
-    public Text cardDescUI;
+    
 
 	// Use this for initialization
 	void Start () {
-        Text[] textInputs = this.gameObject.GetComponentInParent<Canvas>().gameObject.GetComponentsInChildren<Text>();
-        foreach (Text t in textInputs)
-        {
-            switch (t.tag)
-            {
-                case "CardName":
-                    cardNameUI = t;
-                    break;
-                case "ManaCost":
-                    manaTextUI = t;
-                    break;
-                case "CardInfo":
-                    cardDescUI = t;
-                    break;
-                default:
-                    Debug.LogWarning("Unexpected Card tag found! Things will probably break soon!");
-                    break;
-            }
-        }
-        StartCoroutine("UpdateUI");
+        
 	}
 	
 	// Update is called once per frame
@@ -96,13 +75,7 @@ public class Card : Extender {
 	
 	}
 
-    IEnumerator UpdateUI()
-    {
-        cardNameUI.text = cardName;
-        manaTextUI.text = manaCost.ToString();
-        cardDescUI.text = cardText;
-        yield return new WaitForSeconds(0.2f);
-    }
+    
 
 	[System.Serializable]
 	public class PotencyInfo {
