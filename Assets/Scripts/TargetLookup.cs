@@ -9,7 +9,10 @@ public enum TargetType
     LongSword = 2,
     Shockwave = 3,
     Cannon = 4,
-    RandomEnemy = 5
+    RandomOpponent = 5,
+    RandomPlayer = 6,
+    RandomEnemy = 7,
+    RandomActor = 8
 }
 
 /// <summary>
@@ -29,7 +32,7 @@ public class TargetLookup : Extender {
 	// This will return all actors in the area of effect
 	// If you want it to "smart cast", aka not hit player units if cast by a player
 	// You'll need another check
-    public static IEnumerable<Actor> Lookup(TargetType targetType, Board field, Actor cardUser)
+    public IEnumerable<Actor> Lookup(TargetType targetType, Actor cardUser)
     {
         int x = cardUser.location.x;
         int y = cardUser.location.y;
@@ -109,14 +112,42 @@ public class TargetLookup : Extender {
                 }
 
                 break;
-            case TargetType.RandomEnemy:
+            case TargetType.RandomOpponent:
                 if (cardUser is Player)
                 {
-                    
+                    foreach (Actor a in battle.actorsList)
+                    {
+                        if (a is Enemy)
+                            yield return a;
+                    }
                 }
                 else if (cardUser is Enemy)
                 {
-
+                    foreach (Actor a in battle.actorsList)
+                    {
+                        if (a is Player)
+                            yield return a;
+                    }
+                }
+                break;
+            case TargetType.RandomEnemy:
+                foreach (Actor a in battle.actorsList)
+                {
+                    if (a is Enemy)
+                        yield return a;
+                }
+                break;
+            case TargetType.RandomPlayer:
+                foreach (Actor a in battle.actorsList)
+                {
+                    if (a is Player)
+                        yield return a;
+                }
+                break;
+            case TargetType.RandomActor:
+                foreach (Actor a in battle.actorsList)
+                {
+                    yield return a;
                 }
                 break;
         }

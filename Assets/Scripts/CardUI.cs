@@ -28,4 +28,16 @@ public class CardUI : MonoBehaviour {
         cardDescUI.text = cardScript.cardText;
         yield return new WaitForSeconds(0.2f);
     }
+
+    public void SetElementsActive(bool active)
+    {
+        foreach (Image i in gameObject.GetComponentsInChildren<Image>())
+        {
+            i.enabled = active;
+        }
+        foreach (Text t in gameObject.GetComponentsInChildren<Text>())
+        {
+            t.enabled = active;
+        }
+    }
 }

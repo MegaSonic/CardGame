@@ -27,7 +27,7 @@ public class Battle : MonoBehaviour {
 	/// <summary>
 	/// The players and enemies participating in this battle, in turn order.
 	/// </summary>
-	private List<Actor> actorsList;
+	public List<Actor> actorsList;
 
 	/// <summary>
 	/// The index in actorsList of who has the current turn.

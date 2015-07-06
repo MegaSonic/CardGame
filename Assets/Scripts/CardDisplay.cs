@@ -7,7 +7,8 @@ public class CardDisplay : MonoBehaviour {
     private RaycastHit2D hit;
 
     private Canvas canvas;
-    
+
+    private GameObject cardDisplayed;
 
     private void UpdateDisplay(GameObject card)
     {
@@ -29,21 +30,31 @@ public class CardDisplay : MonoBehaviour {
         {
             print(hit.collider.name);
 
-            if (hit.collider.tag == "Card")
+            if (hit.collider.tag == "Card" && cardDisplayed == null)
             {
-                // TODO: make it so this only happens once
                 canvas.enabled = true;
+                cardDisplayed = hit.collider.gameObject;
+                cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
                 UpdateDisplay(hit.collider.gameObject);
             }
-            else
+            else if (hit.collider.tag == "Card" && hit.collider.gameObject != cardDisplayed)
             {
-                canvas.enabled = false;
+                canvas.enabled = true;
+                cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
+                cardDisplayed = hit.collider.gameObject;
+                cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
+                UpdateDisplay(hit.collider.gameObject);
             }
         }
         else
         {
             //print("");
-            canvas.enabled = false;
+            if (cardDisplayed != null)
+            {
+                canvas.enabled = false;
+                cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
+                cardDisplayed = null;
+            }
         }
 	}
 }
