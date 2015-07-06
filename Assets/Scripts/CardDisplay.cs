@@ -8,19 +8,55 @@ public class CardDisplay : MonoBehaviour {
 
     private Canvas canvas;
 
+    private Image image;
+    private Text nameText;
+    private Text manaText;
+    private Text infoText;
+
     private GameObject cardDisplayed;
 
+    /// <summary>
+    /// Updates the UI to match given card
+    /// </summary>
+    /// <param name="card"></param>
     private void UpdateDisplay(GameObject card)
     {
-        this.GetComponentInChildren<Image>().color = card.GetComponentInChildren<Image>().color;
-        this.GetComponentInChildren<Text>().text = card.name;
+        //this.GetComponentInChildren<Image>().color = card.GetComponentInChildren<Image>().color;
+        //this.GetComponentInChildren<Text>().text = card.name;
+
+        image.color = card.GetComponentInChildren<Image>().color;
+
+        Card cardinfo = card.GetComponentInChildren<Card>();
+
+        nameText.text = cardinfo.cardName;
+        manaText.text = cardinfo.manaCost.ToString();
+        infoText.text = cardinfo.cardText;
     }
 
     // Use this for initialization
-	void Start () {
+    void Start()
+    {
         canvas = GetComponent<Canvas>();
+        image = GetComponentInChildren<Image>();
+
+        Text[] tmp = GetComponentsInChildren<Text>();
+        foreach (Text t in tmp)
+        {
+            if (t.transform.parent.name == "cardName")
+            {
+                nameText = t;
+            }
+            else if (t.transform.parent.name == "manaDisplay")
+            {
+                manaText = t;
+            }
+            else if (t.transform.parent.name == "cardInfo")
+            {
+                infoText = t;
+            }
+        }
     }
-	
+
 	// Update is called once per frame
 	void Update () {      
 
