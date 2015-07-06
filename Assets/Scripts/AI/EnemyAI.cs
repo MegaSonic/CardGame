@@ -10,7 +10,7 @@ public enum AIStyle
 }
 
 
-public class EnemyAI : MonoBehaviour {
+public class EnemyAI : Extender {
 
     public AIStyle aiStyle;
     public List<Card> usableCards;
@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour {
 
 
     private int round = 1;
+    private bool[] flags;
 
     private Enemy enemy;
     private Board board;
@@ -31,6 +32,7 @@ public class EnemyAI : MonoBehaviour {
 	void Start () {
         enemy = this.gameObject.GetSafeComponent<Enemy>();
         board = GameObject.FindGameObjectWithTag("Board").GetSafeComponent<Board>();
+        flags = new bool[10];
 	}
 	
 	// Update is called once per frame
