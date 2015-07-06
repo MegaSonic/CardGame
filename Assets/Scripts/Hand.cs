@@ -34,10 +34,23 @@ public class Hand : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+
+            // not the best way to draw a card, but obviously we'll change this later
+
             GameObject newCard = Instantiate(Resources.Load("Card Canvas")) as GameObject;
-            //newCard.transform.SetParent(this.transform, false);
+
+            // NOT WORKING YET
+            /*
+            GameObject[] tmpcards = Resources.LoadAll<GameObject>("Cards");
+
+            newCard.GetComponentInChildren<Card> = Instantiate(tmpcards[Random.Range(0, tmpcards.Length)]) as GameObject;
+            
+             */ 
+             
+             
             newCard.transform.position = spawnPoint.position;
 
+             
             // giving it an id number for easier identification during testing            
             newCard.name = "Card Canvas: " + drawnCardsIndex.ToString();
             
@@ -54,8 +67,7 @@ public class Hand : MonoBehaviour {
             foreach (GameObject go in cards)
             {
                 LeanTween.moveX(go, (midPoint.transform.position.x - ((cards.Count / 2f) - cards.IndexOf(go))), 0.3f);
-            }
-            //LeanTween.moveX(newCard, midPoint.transform.position.x + (cards.Count - 1), 0.3f).setOnComplete(UpdateCardPlacement);
+            }          
         }
 	}
 
