@@ -67,9 +67,11 @@ public class Hand : MonoBehaviour {
 
         // increment index
         drawnCardsIndex++;
+        
 
         newCard.GetComponentInChildren<Image>().color = new Color(Random.value, Random.value, Random.value);
         cards.Add(newCard);
+        newCard.transform.position = new Vector3(newCard.transform.position.x, newCard.transform.position.y, 100f - cards.IndexOf(newCard));
 
     }
 
