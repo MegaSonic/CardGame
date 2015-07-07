@@ -52,20 +52,9 @@ public class Hand : MonoBehaviour {
         GameObject[] tmpcards = Resources.LoadAll<GameObject>("Cards");
         GameObject drawnCard = tmpcards[Random.Range(0, tmpcards.Length)];
 
-        // copy info from drawncard to newcard
-        Card drawnCardInfo = drawnCard.GetComponent<Card>();
-        Card newCardInfo = newCard.GetComponentInChildren<Card>();
+        GameObject loadCard = Instantiate(drawnCard) as GameObject;
 
-        newCardInfo.cardID = drawnCardInfo.cardID;
-        newCardInfo.characterRestriction = drawnCardInfo.characterRestriction;
-        newCardInfo.jobRestriction = drawnCardInfo.jobRestriction;
-        newCardInfo.cardName = drawnCardInfo.cardName;
-        newCardInfo.manaCost = drawnCardInfo.manaCost;
-        newCardInfo.cardText = drawnCardInfo.cardText;
-        newCardInfo.cardKeywords = drawnCardInfo.cardKeywords;
-        newCardInfo.cardActions = drawnCardInfo.cardActions;
-
-        // spawn in position
+        loadCard.transform.SetParent(newCard.transform, false);
 
         newCard.transform.position = spawnPoint.position;
 
