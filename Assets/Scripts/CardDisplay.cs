@@ -60,14 +60,14 @@ public class CardDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {      
 
+        // cast a raycast to where the mouse is pointing
         hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
         if (hit.collider != null)
         {
-            print(hit.collider.name);
-
             if (hit.collider.tag == "Card" && cardDisplayed == null)
             {
+                // make the card display visible
                 canvas.enabled = true;
                 cardDisplayed = hit.collider.gameObject;
                 cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
@@ -75,6 +75,7 @@ public class CardDisplay : MonoBehaviour {
             }
             else if (hit.collider.tag == "Card" && hit.collider.gameObject != cardDisplayed)
             {
+                // make the card display visible and make the card invisible
                 canvas.enabled = true;
                 cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
                 cardDisplayed = hit.collider.gameObject;
@@ -83,13 +84,24 @@ public class CardDisplay : MonoBehaviour {
             }
         }
         else
-        {
-            //print("");
+        {            
             if (cardDisplayed != null)
             {
+                // hide the card display
                 canvas.enabled = false;
                 cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
                 cardDisplayed = null;
+            }
+        }
+
+        // check for mouse click
+        if (Input.GetMouseButtonDown(0))
+        {
+            // if clicked on a card
+            if (hit.collider != null && hit.collider.tag == "Card")
+            {
+                Card clickedCard = hit.collider.GetComponentInChildren<Card>();
+                clickedCard.Play();
             }
         }
 	}

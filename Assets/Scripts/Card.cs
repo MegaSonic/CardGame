@@ -75,7 +75,11 @@ public class Card : Extender {
 	
 	}
 
-    
+    public void Play()
+    {
+        print("played card: " + cardName);
+
+    }
 
 	[System.Serializable]
 	public class PotencyInfo {
