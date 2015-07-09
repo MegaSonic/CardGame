@@ -14,6 +14,7 @@ public class CardDisplay : MonoBehaviour {
     private Text infoText;
 
     private GameObject cardDisplayed;
+	private Battle battle;
 
     /// <summary>
     /// Updates the UI to match given card
@@ -39,8 +40,11 @@ public class CardDisplay : MonoBehaviour {
         canvas = GetComponent<Canvas>();
         image = GetComponentInChildren<Image>();
 
-        Text[] tmp = GetComponentsInChildren<Text>();
-        foreach (Text t in tmp)
+		GameObject tmp = GameObject.Find ("Battle");
+		battle = ExtensionMethods.GetSafeComponent<Battle>(tmp);
+
+        Text[] tmp2 = GetComponentsInChildren<Text>();
+        foreach (Text t in tmp2)
         {
             if (t.transform.parent.name == "cardName")
             {
@@ -101,7 +105,10 @@ public class CardDisplay : MonoBehaviour {
             if (hit.collider != null && hit.collider.tag == "Card")
             {
                 Card clickedCard = hit.collider.GetComponentInChildren<Card>();
-                clickedCard.Play();
+				if (battle.PlayCard(clickedCard))
+					return;
+				else
+					print ("NOT ENOUGH MANA");
             }
         }
 	}

@@ -40,6 +40,11 @@ public class Battle : MonoBehaviour {
     private Board board;
 
 	/// <summary>
+	/// The player's mana.
+	/// </summary>
+	private Mana mana;
+
+	/// <summary>
 	/// Start this instance.
 	/// </summary>
 	void Start () {
@@ -50,6 +55,8 @@ public class Battle : MonoBehaviour {
 		es = ExtensionMethods.GetSafeComponent<EnemyState>(tmp2);
 
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
+
+		mana = GetComponent<Mana> ();
 
 		determineTurnOrder ();
 		currentTurnIndex = 0;
@@ -378,6 +385,28 @@ public class Battle : MonoBehaviour {
 			// destroy the actor
 			UnityEngine.Object.Destroy (a.gameObject);
 		}
+	}
+
+	/// <summary>
+	/// Plays the card, if there is enough mana.
+	/// </summary>
+	/// <returns><c>true</c>, if card was played, <c>false</c> otherwise.</returns>
+	/// <param name="c">C.</param>
+	public bool PlayCard(Card c)
+	{
+		// check for the right amount of mana
+		if (mana.manaState.CurrentMana < c.manaCost)
+			return false;
+		else
+			// subtract the amount the card is using
+			mana.SubtractMana(c.manaCost);
+
+		// let the card do its thing
+		c.Play ();
+
+		// TODO:  move the card to the graveyard
+
+		return true;
 	}
 }
 
