@@ -37,7 +37,7 @@ MonoBehaviour:
   cardActions:
   - useStoreTargets: 0
     storeTargets: 0
-    targetID: 5
+    targetID: 9
     usePotency: 1
     potencyInfo:
       potency: 50
@@ -70,7 +70,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: cardActions.Array.data[0].targetID
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: cardActions.Array.data[0].potencyInfo.potencyStat

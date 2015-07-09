@@ -6,6 +6,17 @@ using UnityEngine.UI;
 
 public class Card : Extender {
 
+    private TargetLookup targetLookup;
+    private EffectLookup effectLookup;
+    private Battle battle;
+
+    void Start()
+    {
+        battle = GameObject.FindGameObjectWithTag("World").GetSafeComponent<Battle>();
+        targetLookup = GameObject.FindGameObjectWithTag("World").GetSafeComponent<TargetLookup>();
+        effectLookup = GameObject.FindGameObjectWithTag("World").GetSafeComponent<EffectLookup>();
+    }
+
 	/// <summary>
 	/// What this card bases its potency off of, i.e. strength or magic.
 	/// Enum so this can be expanded later.
@@ -62,13 +73,6 @@ public class Card : Extender {
 	/// </summary>
 	[HideInInspector]
 	public List<Actor> storeTargets;
-
-    
-
-	// Use this for initialization
-	void Start () {
-        
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -81,6 +85,15 @@ public class Card : Extender {
 		// iterate through actions and keywords
 		foreach (CardAction c in cardActions) {
 			print ("Do:" + c.ToString());
+
+            switch (c.effectID)
+            {
+                case EffectType.DealDamage:
+                    foreach (Actor a in targetLookup.Lookup(c.targetID, battle.GetCurrentActor())) {
+                        EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, c.potencyInfo);
+                    }
+                    break;
+            }
 		}
     }
 

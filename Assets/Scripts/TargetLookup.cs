@@ -9,10 +9,11 @@ public enum TargetType
     LongSword = 2,
     Shockwave = 3,
     Cannon = 4,
-    RandomOpponent = 5,
-    RandomPlayer = 6,
-    RandomEnemy = 7,
-    RandomActor = 8
+    AllOpponents = 5,
+    AllPlayers = 6,
+    AllEnemies = 7,
+    AllActors = 8,
+    RandomOpponent = 9
 }
 
 /// <summary>
@@ -71,16 +72,18 @@ public class TargetLookup : Extender {
 
                 if (cardUser is Player)
                 {
-                    for (int i = x; i >= 0; i--)
+                    for (int i = x - 1; i >= 0; i--)
                     {
-                        yield return field.board[i, y].Unit;
+                        if (field.board[i, y].Unit != null && field.board[i, y].Unit is Enemy)
+                            yield return field.board[i, y].Unit;
                     }
                 }
                 else if (cardUser is Enemy)
                 {
-                    for (int i = x; i <= 5; i++)
+                    for (int i = x + 1; i <= 5; i++)
                     {
-                        yield return field.board[i, y].Unit;
+                        if (field.board[i, y].Unit != null && field.board[i, y].Unit is Player)
+                            yield return field.board[i, y].Unit;
                     }
                 }
 
@@ -90,7 +93,7 @@ public class TargetLookup : Extender {
             case TargetType.Cannon:
                 if (cardUser is Player)
                 {
-                    for (int i = x; i >= 0; i--)
+                    for (int i = x - 1; i >= 0; i--)
                     {
                         if (field.board[i, y].Unit != null)
                         {
@@ -101,7 +104,7 @@ public class TargetLookup : Extender {
                 }
                 else if (cardUser is Enemy)
                 {
-                    for (int i = x; i <= 5; i++)
+                    for (int i = x + 1; i <= 5; i++)
                     {
                         if (field.board[i, y].Unit != null)
                         {
@@ -112,7 +115,7 @@ public class TargetLookup : Extender {
                 }
 
                 break;
-            case TargetType.RandomOpponent:
+            case TargetType.AllOpponents:
                 if (cardUser is Player)
                 {
                     foreach (Actor a in battle.actorsList)
@@ -130,26 +133,50 @@ public class TargetLookup : Extender {
                     }
                 }
                 break;
-            case TargetType.RandomEnemy:
+            case TargetType.AllEnemies:
                 foreach (Actor a in battle.actorsList)
                 {
                     if (a is Enemy)
                         yield return a;
                 }
                 break;
-            case TargetType.RandomPlayer:
+            case TargetType.AllPlayers:
                 foreach (Actor a in battle.actorsList)
                 {
                     if (a is Player)
                         yield return a;
                 }
                 break;
-            case TargetType.RandomActor:
+            case TargetType.AllActors:
                 foreach (Actor a in battle.actorsList)
                 {
                     yield return a;
                 }
                 break;
+            case TargetType.RandomOpponent:
+                {
+                    List<Actor> actorList = new List<Actor>();
+
+                    if (cardUser is Player)
+                    {
+                        foreach (Actor a in battle.actorsList)
+                        {
+                            if (a is Enemy)
+                                actorList.Add(a);
+                        }
+                    }
+                    else if (cardUser is Enemy)
+                    {
+                        foreach (Actor a in battle.actorsList)
+                        {
+                            if (a is Player)
+                                actorList.Add(a);
+                        }
+                    }
+
+                    yield return actorList[Random.Range(0, actorList.Count)];
+                    yield break;
+                }
         }
     }
 }

@@ -25,8 +25,6 @@ public enum EventName
 /// </summary>
 public class ActorEvent {
 
-   
-
     /// <summary>
     /// The list of events that are subscribed to this.
     /// </summary>

@@ -14,10 +14,15 @@ public enum EffectType
     DrawCards = 7
 }
 
-public static class EffectLookup {
-    private static Mana mana = GameObject.FindGameObjectWithTag("World").GetSafeComponent<Mana>();
-    private static Board board = GameObject.FindGameObjectWithTag("Board").GetSafeComponent<Board>();
+public class EffectLookup : Extender {
+    private static Mana mana;
+    private static Board board;
 
+    void Start()
+    {
+        mana = GameObject.FindGameObjectWithTag("World").GetSafeComponent<Mana>();
+        board = GameObject.FindGameObjectWithTag("Board").GetSafeComponent<Board>();
+    }
 
     /// <summary>
     /// Looks up an effect. Payloads lets you send an optional number of objects which Lookup will handle (or not)
