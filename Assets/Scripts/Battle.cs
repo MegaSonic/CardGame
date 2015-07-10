@@ -45,6 +45,16 @@ public class Battle : MonoBehaviour {
 	private Mana mana;
 
 	/// <summary>
+	/// The player's hand of cards.
+	/// </summary>
+	private Hand hand;
+
+	/// <summary>
+	/// The collection of discarded cards.
+	/// </summary>
+	private List<GameObject> graveyard;
+
+	/// <summary>
 	/// Start this instance.
 	/// </summary>
 	void Start () {
@@ -54,9 +64,14 @@ public class Battle : MonoBehaviour {
 		GameObject tmp2 = GameObject.Find ("EnemyState");
 		es = ExtensionMethods.GetSafeComponent<EnemyState>(tmp2);
 
+		GameObject tmp3 = GameObject.Find ("Hand Canvas");
+		hand = ExtensionMethods.GetSafeComponent<Hand> (tmp3);
+
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<Board>();
 
 		mana = GetComponent<Mana> ();
+
+		graveyard = new List<GameObject> ();
 
 		determineTurnOrder ();
 		currentTurnIndex = 0;
@@ -404,7 +419,9 @@ public class Battle : MonoBehaviour {
 		// let the card do its thing
 		c.Play ();
 
-		// TODO:  move the card to the graveyard
+		// move the card to the graveyard
+		graveyard.Add (c.transform.root.gameObject);
+		hand.Discard (c.transform.root.gameObject);
 
 		return true;
 	}

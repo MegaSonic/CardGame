@@ -80,12 +80,9 @@ public class Card : Extender {
 	}
 
     public void Play()
-    {
-        print("played card: " + cardName);
+    {       
 		// iterate through actions and keywords
 		foreach (CardAction c in cardActions) {
-			print ("Do:" + c.ToString());
-
             switch (c.effectID)
             {
                 case EffectType.DealDamage:

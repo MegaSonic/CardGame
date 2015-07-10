@@ -77,8 +77,21 @@ public class Hand : MonoBehaviour {
 
     public void UpdateCardPlacement()
     {
-        
+		foreach (GameObject go in cards)
+		{
+			LeanTween.moveX(go, (midPoint.transform.position.x - ((cards.Count / 2f) - cards.IndexOf(go))), 0.3f);
+		}    
     }
 
+	public void Discard(GameObject c)
+	{
+		if (!cards.Remove (c)) {
+			print ("Attempted to discard: " + c.ToString () + ", but it wasn't in the hand.");
+			return;
+		}
+
+		c.SetActive (false);
+		UpdateCardPlacement ();
+	}
 
 }
