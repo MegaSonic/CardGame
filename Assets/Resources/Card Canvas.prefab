@@ -210,6 +210,11 @@ MonoBehaviour:
   cardNameUI: {fileID: 11431586}
   manaTextUI: {fileID: 11404512}
   cardDescUI: {fileID: 11494006}
+  cardBack: {fileID: 11442868}
+  fighterColor: {r: .676470578, g: 0, b: 0, a: 1}
+  thiefColor: {r: .0732758641, g: .625, b: 0, a: 1}
+  mageColor: {r: 0, g: .422414124, b: .720588207, a: 1}
+  anyColor: {r: .79411763, g: .640770793, b: 0, a: 1}
 --- !u!114 &11417206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -579,6 +584,66 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Card
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cardBack
+      value: 
+      objectReference: {fileID: 11442868}
+    - target: {fileID: 0}
+      propertyPath: fighterColor.r
+      value: .676470578
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thiefColor.r
+      value: .0732758641
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thiefColor.g
+      value: .625
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thiefColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mageColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mageColor.g
+      value: .422414124
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mageColor.b
+      value: .720588207
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: anyColor.r
+      value: .79411763
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: anyColor.g
+      value: .640770793
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: anyColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fighterColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: thiefColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: mageColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: anyColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

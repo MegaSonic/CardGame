@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardID: 0
-  characterRestriction: 0
+  characterRestriction: 2
   jobRestriction: 0
   cardName: Cannon
   manaCost: 4
@@ -44,9 +44,6 @@ MonoBehaviour:
       potencyStat: 1
     effectID: 0
   storeTargets: []
-  cardNameUI: {fileID: 0}
-  manaTextUI: {fileID: 0}
-  cardDescUI: {fileID: 0}
 --- !u!224 &22400052
 RectTransform:
   m_ObjectHideFlags: 1
@@ -70,7 +67,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: characterRestriction
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162138}

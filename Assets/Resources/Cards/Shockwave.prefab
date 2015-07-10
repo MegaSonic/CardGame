@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardID: 0
-  characterRestriction: 0
+  characterRestriction: 1
   jobRestriction: 0
   cardName: Shockwave
   manaCost: 3
@@ -44,9 +44,6 @@ MonoBehaviour:
       potencyStat: 0
     effectID: 0
   storeTargets: []
-  cardNameUI: {fileID: 0}
-  manaTextUI: {fileID: 0}
-  cardDescUI: {fileID: 0}
 --- !u!224 &22409234
 RectTransform:
   m_ObjectHideFlags: 1
@@ -70,7 +67,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: characterRestriction
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 122162}

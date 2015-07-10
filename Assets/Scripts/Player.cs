@@ -6,6 +6,7 @@ using System.Collections;
 /// </summary>
 public enum PlayerType
 {
+    None = 0,
     Warrior = 1,
     Mage = 2,
     Thief = 3
@@ -19,6 +20,7 @@ public enum PlayerType
 /// </summary>
 public enum PlayerJob
 {
+    None = 0,
     Warrior = 1,
     Mage = 2,
     Thief = 3,
