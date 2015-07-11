@@ -25,7 +25,7 @@ public class CardDisplay : MonoBehaviour {
         //this.GetComponentInChildren<Image>().color = card.GetComponentInChildren<Image>().color;
         //this.GetComponentInChildren<Text>().text = card.name;
 
-        image.color = card.GetComponentInChildren<Image>().color;
+        image.color = card.GetComponent<CardUI>().cardBack.color;
 
         Card cardinfo = card.GetComponentInChildren<Card>();
 
@@ -38,7 +38,6 @@ public class CardDisplay : MonoBehaviour {
     void Start()
     {
         canvas = GetComponent<Canvas>();
-        image = GetComponentInChildren<Image>();
 
 		GameObject tmp = GameObject.Find ("Battle");
 		battle = ExtensionMethods.GetSafeComponent<Battle>(tmp);
@@ -66,20 +65,22 @@ public class CardDisplay : MonoBehaviour {
 
         // cast a raycast to where the mouse is pointing
         hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-        if (hit.collider != null)
+        
+        if (hit.collider != null && hit.collider.tag == "Card")
         {
-            if (hit.collider.tag == "Card" && cardDisplayed == null)
+            if (cardDisplayed == null)
             {
                 // make the card display visible
+                this.gameObject.transform.position = new Vector3(hit.collider.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
                 canvas.enabled = true;
                 cardDisplayed = hit.collider.gameObject;
                 cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
                 UpdateDisplay(hit.collider.gameObject);
             }
-            else if (hit.collider.tag == "Card" && hit.collider.gameObject != cardDisplayed)
+            else if (hit.collider.gameObject != cardDisplayed)
             {
                 // make the card display visible and make the card invisible
+                this.gameObject.transform.position = new Vector3(hit.collider.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
                 canvas.enabled = true;
                 cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
                 cardDisplayed = hit.collider.gameObject;
@@ -88,7 +89,7 @@ public class CardDisplay : MonoBehaviour {
             }
         }
         else
-        {            
+        {
             if (cardDisplayed != null)
             {
                 // hide the card display

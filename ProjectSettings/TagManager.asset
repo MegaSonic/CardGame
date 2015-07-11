@@ -50,3 +50,6 @@ TagManager:
   - name: Hand
     uniqueID: 3699420073
     locked: 0
+  - name: ZoomedCard
+    uniqueID: 781365889
+    locked: 0
