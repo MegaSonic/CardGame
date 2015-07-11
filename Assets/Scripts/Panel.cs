@@ -90,6 +90,8 @@ public class Panel : Extender {
 	private PlayerState ps;
 	private Board theBoard;
 
+    private bool isFlashing = false;
+
 	/// <summary>
 	/// Awake this instance.
 	/// </summary>
@@ -114,6 +116,25 @@ public class Panel : Extender {
 		theBoard = ExtensionMethods.GetSafeComponent<Board>(tmp3);
 	}
 
+    public IEnumerator Flash()
+    {
+        isFlashing = true;
+
+        sprite.color = Color.black;
+        yield return new WaitForSeconds(0.1f);
+        UpdateColor();
+        yield return new WaitForSeconds(0.1f);
+        sprite.color = Color.black;
+        yield return new WaitForSeconds(0.1f);
+        UpdateColor();
+        yield return new WaitForSeconds(0.1f);
+        sprite.color = Color.black;
+        yield return new WaitForSeconds(0.1f);
+        UpdateColor();
+
+        isFlashing = false;
+    }
+
 	/// <summary>
 	/// Update this instance.
 	/// </summary>
@@ -121,16 +142,24 @@ public class Panel : Extender {
 
 		// apply color based on whocanuse
 
-		switch (Owner) {
-		case WhoCanUse.Player:
-			sprite.color = Color.blue;
-			break;
-		case WhoCanUse.Enemy:
-			sprite.color = Color.red;
-			break;
-		default:
-			sprite.color = Color.grey;
-			break;
+        if (!isFlashing) {
+            UpdateColor();
 		}
-	}	 
+	}
+
+    private void UpdateColor()
+    {
+        switch (Owner)
+        {
+            case WhoCanUse.Player:
+                sprite.color = Color.blue;
+                break;
+            case WhoCanUse.Enemy:
+                sprite.color = Color.red;
+                break;
+            default:
+                sprite.color = Color.grey;
+                break;
+        }
+    }
 }

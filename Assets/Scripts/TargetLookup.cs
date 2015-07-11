@@ -74,6 +74,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x - 1; i >= 0; i--)
                     {
+                        StartCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null && field.board[i, y].Unit is Enemy)
                             yield return field.board[i, y].Unit;
                     }
@@ -82,6 +83,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x + 1; i <= 5; i++)
                     {
+                        StartCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null && field.board[i, y].Unit is Player)
                             yield return field.board[i, y].Unit;
                     }
@@ -95,6 +97,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x - 1; i >= 0; i--)
                     {
+                        StartCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null)
                         {
                             yield return field.board[i, y].Unit;
@@ -106,6 +109,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x + 1; i <= 5; i++)
                     {
+                        StartCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null)
                         {
                             yield return field.board[i, y].Unit;
@@ -174,7 +178,9 @@ public class TargetLookup : Extender {
                         }
                     }
 
-                    yield return actorList[Random.Range(0, actorList.Count)];
+                    Actor b = actorList[Random.Range(0, actorList.Count)];
+                    StartCoroutine(field.board[b.location.x, b.location.y].Flash());
+                    yield return b;
                     yield break;
                 }
         }
