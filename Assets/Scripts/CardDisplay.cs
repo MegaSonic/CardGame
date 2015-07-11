@@ -8,7 +8,7 @@ public class CardDisplay : MonoBehaviour {
 
     private Canvas canvas;
 
-    private Image image;
+    public Image image;
     private Text nameText;
     private Text manaText;
     private Text infoText;
