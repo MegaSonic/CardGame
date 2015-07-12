@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 
-public class Hand : MonoBehaviour {
+public class Hand : Extender {
 
     [SerializeField]
     private Transform spawnPoint;
@@ -90,7 +90,16 @@ public class Hand : MonoBehaviour {
 			return;
 		}
 
-		c.SetActive (false);
+        foreach (Image i in c.GetComponentsInChildren<Image>())
+        {
+            i.CrossFadeAlpha(0f, 0.15f, false);
+        }
+        foreach (Text t in c.GetComponentsInChildren<Text>())
+        {
+            t.CrossFadeAlpha(0f, 0.15f, false);
+        }
+
+        StartCoroutine(WaitAndSetActive(0.15f, c));
 		UpdateCardPlacement ();
 	}
 

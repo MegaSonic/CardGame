@@ -33,5 +33,12 @@ public class Extender : MonoBehaviour {
 		
 		return list;
 	}
+
+    public IEnumerator WaitAndSetActive(float time, GameObject g, bool active = false)
+    {
+        yield return new WaitForSeconds(time);
+        g.SetActive(active);
+        yield return null;
+    }
 }
 

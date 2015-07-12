@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CardDisplay : MonoBehaviour {
 
@@ -144,14 +145,14 @@ public class CardDisplay : MonoBehaviour {
 				Card clickedCard = cardToDrag.GetComponentInChildren<Card>();
                 if (battle.PlayCard(clickedCard))
                 {
-
+                    
                 }
                 else
                 {
                     // return card to its original position
                     LeanTween.cancel(cardToDrag);
-                    LeanTween.moveX(cardToDrag, cardScreenPos.x, 0.09f);
-                    LeanTween.moveY(cardToDrag, cardScreenPos.y, 0.09f);
+                    LeanTween.moveX(cardToDrag, cardScreenPos.x, 0.2f);
+                    LeanTween.moveY(cardToDrag, cardScreenPos.y, 0.2f);
                     //hit.transform.position = cardScreenPos;
                     print("NOT ENOUGH MANA");
                 }
