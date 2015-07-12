@@ -19,6 +19,8 @@ public class CardDisplay : MonoBehaviour {
 
     private GameObject cardDisplayed;
 	private Battle battle;
+    private bool isDraggingCard = false;
+    private GameObject cardToDrag;
 
     /// <summary>
     /// Updates the UI to match given card
@@ -72,7 +74,7 @@ public class CardDisplay : MonoBehaviour {
         
 		if (hit.collider != null && hit.collider.tag == "Card" && !Input.GetMouseButton(0))
         {
-            if (cardDisplayed == null)
+            if (cardDisplayed == null && !LeanTween.isTweening(hit.collider.gameObject))
             {
                 // make the card display visible
                 this.gameObject.transform.position = new Vector3(hit.collider.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
@@ -81,7 +83,7 @@ public class CardDisplay : MonoBehaviour {
                 cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
                 UpdateDisplay(hit.collider.gameObject);
             }
-            else if (hit.collider.gameObject != cardDisplayed)
+            else if (cardDisplayed != null && hit.collider.gameObject != cardDisplayed)
             {
                 // make the card display visible and make the card invisible
                 this.gameObject.transform.position = new Vector3(hit.collider.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
@@ -114,6 +116,10 @@ public class CardDisplay : MonoBehaviour {
 			{
 				// keep track of card's original position
 				cardScreenPos = hit.transform.position;
+                cardToDrag = hit.transform.gameObject;
+                isDraggingCard = true;
+                cardDisplayed = null;
+                canvas.enabled = false;
 			}
 		}
 
@@ -122,25 +128,36 @@ public class CardDisplay : MonoBehaviour {
 			Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint); // + draggingOffset;
 
 			// if clicked on a card
-			if (hit.collider != null && hit.collider.tag == "Card")
+			if (isDraggingCard)
 			{
 				// move the card's position
-				hit.transform.position = curPosition;
+                
+                LeanTween.moveX(cardToDrag, curPosition.x, 0.02f);
+                LeanTween.moveY(cardToDrag.gameObject, curPosition.y, 0.02f);
 			}
 		}
 
 		if (Input.GetMouseButtonUp (0)) {
 			// if clicked on a card
-			if (hit.collider != null && hit.collider.tag == "Card")
+			if (isDraggingCard)
 			{
-				Card clickedCard = hit.collider.GetComponentInChildren<Card>();
-				if (battle.PlayCard(clickedCard))
-					return;
-				else{
-					// return card to its original position
-					hit.transform.position = cardScreenPos;
-					print ("NOT ENOUGH MANA");
-				}
+				Card clickedCard = cardToDrag.GetComponentInChildren<Card>();
+                if (battle.PlayCard(clickedCard))
+                {
+
+                }
+                else
+                {
+                    // return card to its original position
+                    LeanTween.cancel(cardToDrag);
+                    LeanTween.moveX(cardToDrag, cardScreenPos.x, 0.09f);
+                    LeanTween.moveY(cardToDrag, cardScreenPos.y, 0.09f);
+                    //hit.transform.position = cardScreenPos;
+                    print("NOT ENOUGH MANA");
+                }
+
+                cardToDrag = null;
+                isDraggingCard = false;
 			}
 		}
 
