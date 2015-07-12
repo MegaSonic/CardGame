@@ -13,6 +13,10 @@ public class CardDisplay : MonoBehaviour {
     private Text manaText;
     private Text infoText;
 
+	private Vector3 screenPoint;
+	private Vector3 draggingOffset;
+	private Vector3 cardScreenPos;
+
     private GameObject cardDisplayed;
 	private Battle battle;
 
@@ -66,7 +70,7 @@ public class CardDisplay : MonoBehaviour {
         // cast a raycast to where the mouse is pointing
         hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         
-        if (hit.collider != null && hit.collider.tag == "Card")
+		if (hit.collider != null && hit.collider.tag == "Card" && !Input.GetMouseButton(0))
         {
             if (cardDisplayed == null)
             {
@@ -100,6 +104,50 @@ public class CardDisplay : MonoBehaviour {
         }
 
         // check for mouse click
+
+		if (Input.GetMouseButtonDown (0)) {
+			screenPoint = Camera.main.WorldToScreenPoint (gameObject.transform.position);
+			draggingOffset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+			// if clicked on a card
+			if (hit.collider != null && hit.collider.tag == "Card")
+			{
+				// keep track of card's original position
+				cardScreenPos = hit.transform.position;
+			}
+		}
+
+		if (Input.GetMouseButton(0)){
+			Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+			Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint); // + draggingOffset;
+
+			// if clicked on a card
+			if (hit.collider != null && hit.collider.tag == "Card")
+			{
+				// move the card's position
+				hit.transform.position = curPosition;
+			}
+		}
+
+		if (Input.GetMouseButtonUp (0)) {
+			// if clicked on a card
+			if (hit.collider != null && hit.collider.tag == "Card")
+			{
+				Card clickedCard = hit.collider.GetComponentInChildren<Card>();
+				if (battle.PlayCard(clickedCard))
+					return;
+				else{
+					// return card to its original position
+					hit.transform.position = cardScreenPos;
+					print ("NOT ENOUGH MANA");
+				}
+			}
+		}
+
+
+
+		// play card by single click
+		/*
         if (Input.GetMouseButtonDown(0))
         {
             // if clicked on a card
@@ -112,5 +160,6 @@ public class CardDisplay : MonoBehaviour {
 					print ("NOT ENOUGH MANA");
             }
         }
+        */	
 	}
 }
