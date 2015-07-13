@@ -80,12 +80,24 @@ public class Card : Extender {
 	}
 
     public void Play()
-    {       
+    {
+        if (targetLookup == null)
+        {
+            targetLookup = GameObject.FindGameObjectWithTag("World").GetSafeComponent<TargetLookup>();
+        }
+
+        if (battle == null)
+        {
+            battle = GameObject.FindGameObjectWithTag("World").GetSafeComponent<Battle>();
+        }
+
 		// iterate through actions and keywords
 		foreach (CardAction c in cardActions) {
             switch (c.effectID)
             {
                 case EffectType.DealDamage:
+                    Debug.Log(c.targetID);
+                    Debug.Log(battle.GetCurrentActor());
                     foreach (Actor a in targetLookup.Lookup(c.targetID, battle.GetCurrentActor())) {
                         EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, c.potencyInfo);
                     }

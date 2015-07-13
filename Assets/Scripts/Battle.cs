@@ -185,10 +185,11 @@ public class Battle : MonoBehaviour {
             {
                 BoardLocation newLocation = ai.RunAIRoutine();
                 MoveActorToPanel(current, newLocation);
+                if (ai.nextCardToUse != null) ai.nextCardToUse.Play();
             }
 
-			int damage = Random.Range(1, 50);
-			current.TakeDamage(damage);
+			//int damage = Random.Range(1, 50);
+			//current.TakeDamage(damage);
 			changeTurns();
 		}
 

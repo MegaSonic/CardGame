@@ -52,39 +52,44 @@ public class EnemyAI : Extender {
         {
                 // Stays in column, follows closest enemy. Two cards, Fight and Shockwave
             case AIStyle.Mettaur:
-                
+
+                bool dontMove = false;
                 for (int i = enemy.location.x + 1; i <= 5; i++) 
                 {
                     // If there's an enemy in the same row, don't move
                     if (board.board[i, enemy.location.y].Unit != null && board.board[i, enemy.location.y].Unit is Player)
                     {
-                        return newLocation;
+                        dontMove = true;
+                        break;
                     }
                 }
                     // Otherwise, find the enemy in the highest row and move closer to it
-                for (int i = enemy.location.x + 1; i <= 5; i++)
+                if (!dontMove)
                 {
-                    for (int j = 0; j <= 2; j++)
+                    for (int i = enemy.location.x + 1; i <= 5; i++)
                     {
-                        if (board.board[i, j].Unit != null && board.board[i, j].Unit is Player)
+                        for (int j = 0; j <= 2; j++)
                         {
-                            if (enemy.location.y > j)
+                            if (board.board[i, j].Unit != null && board.board[i, j].Unit is Player)
                             {
-                                newLocation.y--;
-                                return newLocation;
-                            }
-                            else if (enemy.location.y < j)
-                            {
-                                newLocation.y++;
-                                return newLocation;
+                                if (enemy.location.y > j)
+                                {
+                                    newLocation.y--;
+                                    break;
+                                }
+                                else if (enemy.location.y < j)
+                                {
+                                    newLocation.y++;
+                                    break;
+                                }
                             }
                         }
                     }
                 }
                 
-
-                // nextCardToUse = usableCards[Random.Range(0, usableCards.Count)];
-                break;
+                if (usableCards.Count != 0)
+                    nextCardToUse = usableCards[Random.Range(0, usableCards.Count)];
+                return newLocation;
 
 
             case AIStyle.Teleport:
