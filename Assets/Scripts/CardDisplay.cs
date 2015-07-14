@@ -162,7 +162,18 @@ public class CardDisplay : MonoBehaviour {
 			}
 		}
 
-
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (isDraggingCard)
+            {
+                // return card to its original position
+                LeanTween.cancel(cardToDrag);
+                LeanTween.moveX(cardToDrag, cardScreenPos.x, 0.2f);
+                LeanTween.moveY(cardToDrag, cardScreenPos.y, 0.2f);
+                cardToDrag = null;
+                isDraggingCard = false;
+            }
+        }
 
 		// play card by single click
 		/*
