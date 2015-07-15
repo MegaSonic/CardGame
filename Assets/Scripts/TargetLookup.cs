@@ -34,7 +34,7 @@ public class TargetLookup : Extender {
 	// This will return all actors in the area of effect
 	// If you want it to "smart cast", aka not hit player units if cast by a player
 	// You'll need another check
-    public static IEnumerable<Actor> Lookup(TargetType targetType, Actor cardUser)
+    public static IEnumerable<BoardLocation> Lookup(TargetType targetType, Actor cardUser)
     {
         int x = cardUser.location.x;
         int y = cardUser.location.y;
@@ -48,9 +48,9 @@ public class TargetLookup : Extender {
                 {
                     for (int i = y - 1; i < y + 2; i++)
                     {
-                        if (i != -1 && i != 3 && field.board[x - 1, i].Unit != null)
+                        if (i >= 0 && i <= 2)
                         {
-                            yield return field.board[x - 1, i].Unit;
+                            yield return new BoardLocation(x - 1, i);
                         }
                     }
 
@@ -60,9 +60,9 @@ public class TargetLookup : Extender {
                 {
                     for (int i = y - 1; i < y + 2; i++)
                     {
-                        if (i != -1 && i != 3 && field.board[x + 1, i].Unit != null)
+                        if (i >= 0 && i <= 2)
                         {
-                            yield return field.board[x + 1, i].Unit;
+                            yield return new BoardLocation(x + 1, i);
                         }
                     }
                 }
@@ -76,8 +76,7 @@ public class TargetLookup : Extender {
                     for (int i = x - 1; i >= 0; i--)
                     {
                         StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
-                        if (field.board[i, y].Unit != null && field.board[i, y].Unit is Enemy)
-                            yield return field.board[i, y].Unit;
+                        yield return new BoardLocation(i, y);
                     }
                 }
                 else if (cardUser is Enemy)
@@ -85,8 +84,7 @@ public class TargetLookup : Extender {
                     for (int i = x + 1; i <= 5; i++)
                     {
                         StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
-                        if (field.board[i, y].Unit != null && field.board[i, y].Unit is Player)
-                            yield return field.board[i, y].Unit;
+                        yield return new BoardLocation(i, y);
                     }
                 }
 
@@ -99,10 +97,10 @@ public class TargetLookup : Extender {
                     for (int i = x - 1; i >= 0; i--)
                     {
                         StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
+                        yield return new BoardLocation(i, y);
                         if (field.board[i, y].Unit != null)
                         {
-                            yield return field.board[i, y].Unit;
-                            yield break;
+                            break;
                         }
                     }
                 }
@@ -111,10 +109,10 @@ public class TargetLookup : Extender {
                     for (int i = x + 1; i <= 5; i++)
                     {
                         StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
+                        yield return new BoardLocation(i, y);
                         if (field.board[i, y].Unit != null)
                         {
-                            yield return field.board[i, y].Unit;
-                            yield break;
+                            break;
                         }
                     }
                 }
@@ -126,7 +124,7 @@ public class TargetLookup : Extender {
                     foreach (Actor a in battle.actorsList)
                     {
                         if (a is Enemy)
-                            yield return a;
+                            yield return a.location;
                     }
                 }
                 else if (cardUser is Enemy)
@@ -134,7 +132,7 @@ public class TargetLookup : Extender {
                     foreach (Actor a in battle.actorsList)
                     {
                         if (a is Player)
-                            yield return a;
+                            yield return a.location;
                     }
                 }
                 break;
@@ -142,20 +140,20 @@ public class TargetLookup : Extender {
                 foreach (Actor a in battle.actorsList)
                 {
                     if (a is Enemy)
-                        yield return a;
+                        yield return a.location;
                 }
                 break;
             case TargetType.AllPlayers:
                 foreach (Actor a in battle.actorsList)
                 {
                     if (a is Player)
-                        yield return a;
+                        yield return a.location;
                 }
                 break;
             case TargetType.AllActors:
                 foreach (Actor a in battle.actorsList)
                 {
-                    yield return a;
+                    yield return a.location;
                 }
                 break;
             case TargetType.RandomOpponent:
@@ -181,7 +179,7 @@ public class TargetLookup : Extender {
 
                     Actor b = actorList[Random.Range(0, actorList.Count)];
                     StaticCoroutine.DoCoroutine(field.board[b.location.x, b.location.y].Flash());
-                    yield return b;
+                    yield return b.location;
                     yield break;
                 }
             case TargetType.FirstColumnWithOpponentPanel:
@@ -199,7 +197,7 @@ public class TargetLookup : Extender {
                                     j = 0;
                                 }
                                 else if (foundCol)
-                                    yield return field.board[i, j].Unit;
+                                    yield return new BoardLocation(i, j);
                             }
                         }
                     }
@@ -215,12 +213,31 @@ public class TargetLookup : Extender {
                                     j = 0;
                                 }
                                 else if (foundCol)
-                                    yield return field.board[i, j].Unit;
+                                    yield return new BoardLocation(i, j);
                             }
                         }
                     }
                 }
                 break;
+        }
+    }
+
+    public static IEnumerable<Actor> GetActorsFromLocations(List<BoardLocation> targets)
+    {
+        foreach (BoardLocation location in targets)
+        {
+            if (field.board[location.x, location.y].Unit != null)
+            {
+                yield return field.board[location.x, location.y].Unit;
+            }
+        }
+    }
+
+    public static IEnumerable<Panel> GetPanelsFromLocations(List<BoardLocation> targets)
+    {
+        foreach (BoardLocation location in targets)
+        {
+            yield return field.board[location.x, location.y];
         }
     }
 

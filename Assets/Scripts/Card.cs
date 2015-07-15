@@ -91,10 +91,18 @@ public class Card : Extender {
             switch (c.effectID)
             {
                 case EffectType.DealDamage:
-                    foreach (Actor a in TargetLookup.Lookup(c.targetID, battle.GetCurrentActor())) {
-                        EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, c.potencyInfo);
+                    {
+                        List<BoardLocation> locations = new List<BoardLocation>();
+                        foreach (BoardLocation location in TargetLookup.Lookup(c.targetID, battle.GetCurrentActor()))
+                        {
+                            locations.Add(location);
+                            foreach (Actor a in TargetLookup.GetActorsFromLocations(locations))
+                            {
+                                EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, c.potencyInfo);
+                            }
+                        }
+                        break;
                     }
-                    break;
             }
 		}
     }
