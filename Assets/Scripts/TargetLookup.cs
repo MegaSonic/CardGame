@@ -13,7 +13,8 @@ public enum TargetType
     AllPlayers = 6,
     AllEnemies = 7,
     AllActors = 8,
-    RandomOpponent = 9
+    RandomOpponent = 9,
+    FirstColumnWithOpponentPanel = 10
 }
 
 /// <summary>
@@ -21,8 +22,8 @@ public enum TargetType
 /// </summary>
 public class TargetLookup : Extender {
 
-    public Battle battle;
-    public Board field;
+    public static Battle battle;
+    public static Board field;
 
     void Start()
     {
@@ -33,7 +34,7 @@ public class TargetLookup : Extender {
 	// This will return all actors in the area of effect
 	// If you want it to "smart cast", aka not hit player units if cast by a player
 	// You'll need another check
-    public IEnumerable<Actor> Lookup(TargetType targetType, Actor cardUser)
+    public static IEnumerable<Actor> Lookup(TargetType targetType, Actor cardUser)
     {
         int x = cardUser.location.x;
         int y = cardUser.location.y;
@@ -74,7 +75,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x - 1; i >= 0; i--)
                     {
-                        StartCoroutine(field.board[i, y].Flash());
+                        StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null && field.board[i, y].Unit is Enemy)
                             yield return field.board[i, y].Unit;
                     }
@@ -83,7 +84,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x + 1; i <= 5; i++)
                     {
-                        StartCoroutine(field.board[i, y].Flash());
+                        StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null && field.board[i, y].Unit is Player)
                             yield return field.board[i, y].Unit;
                     }
@@ -97,7 +98,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x - 1; i >= 0; i--)
                     {
-                        StartCoroutine(field.board[i, y].Flash());
+                        StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null)
                         {
                             yield return field.board[i, y].Unit;
@@ -109,7 +110,7 @@ public class TargetLookup : Extender {
                 {
                     for (int i = x + 1; i <= 5; i++)
                     {
-                        StartCoroutine(field.board[i, y].Flash());
+                        StaticCoroutine.DoCoroutine(field.board[i, y].Flash());
                         if (field.board[i, y].Unit != null)
                         {
                             yield return field.board[i, y].Unit;
@@ -179,10 +180,71 @@ public class TargetLookup : Extender {
                     }
 
                     Actor b = actorList[Random.Range(0, actorList.Count)];
-                    StartCoroutine(field.board[b.location.x, b.location.y].Flash());
+                    StaticCoroutine.DoCoroutine(field.board[b.location.x, b.location.y].Flash());
                     yield return b;
                     yield break;
                 }
+            case TargetType.FirstColumnWithOpponentPanel:
+                {
+                    bool foundCol = false;
+                    if (cardUser is Player)
+                    {
+                        for (int i = 5; i >= 0; i--)
+                        {
+                            for (int j = 0; j <= 2; j++)
+                            {
+                                if (field.board[i, j].Owner == Panel.WhoCanUse.Enemy && !foundCol)
+                                {
+                                    foundCol = true;
+                                    j = 0;
+                                }
+                                else if (foundCol)
+                                    yield return field.board[i, j].Unit;
+                            }
+                        }
+                    }
+                    else if (cardUser is Enemy)
+                    {
+                        for (int i = 0; i <= 5; i++)
+                        {
+                            for (int j = 0; j <= 2; j++)
+                            {
+                                if (field.board[i, j].Owner == Panel.WhoCanUse.Player && !foundCol)
+                                {
+                                    foundCol = true;
+                                    j = 0;
+                                }
+                                else if (foundCol)
+                                    yield return field.board[i, j].Unit;
+                            }
+                        }
+                    }
+                }
+                break;
         }
+    }
+
+    /// <summary>
+    /// Takes a list of targets, and filters out a particular group of them, ie. ignore allies or enemies.
+    /// Useful for when you don't want friendly fire in your damaging aoe effects!
+    /// </summary>
+    /// <param name="targets">The list of targets (probably from Lookup)</param>
+    /// <param name="ignoreWhich">true to ignore player characters, false to ignore enemies</param>
+    /// <returns>A new list of targets without the group you specified</returns>
+    public static IEnumerable<Actor> SmartTarget(List<Actor> targets, bool ignoreWhich)
+    {
+
+        foreach (Actor a in targets)
+        {
+            if (ignoreWhich)
+            {
+                if (a is Enemy) yield return a;
+            }
+            else
+            {
+                if (a is Player) yield return a;
+            }
+        }
+
     }
 }
