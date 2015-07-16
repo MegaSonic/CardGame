@@ -101,8 +101,22 @@ public class Card : Extender {
                                 EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, c.potencyInfo);
                             }
                         }
-                        break;
+                        
                     }
+                    break;
+                case EffectType.ChangePanelOwner:
+                    {
+                        List<BoardLocation> locations = new List<BoardLocation>();
+                        foreach (BoardLocation location in TargetLookup.Lookup(c.targetID, battle.GetCurrentActor()))
+                        {
+                            locations.Add(location);
+                            foreach (Panel a in TargetLookup.GetPanelsFromLocations(locations))
+                            {
+                                EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, Panel.WhoCanUse.Player);
+                            }
+                        }
+                    }
+                    break;
             }
 		}
     }

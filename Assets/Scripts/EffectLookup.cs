@@ -100,13 +100,24 @@ public class EffectLookup : Extender {
                     damageTaker.CallActorEvent(EventName.WasHealed);
                 }
                 break;
-                // Panel panelToChange, Panel.WhoCanUser newOwner
+                // Actor cardPlayer, Panel panelToChange, Panel.WhoCanUser newOwner
             case EffectType.ChangePanelOwner:
                 {
-                    Panel panelToChange = payloads[0] as Panel;
-                    Panel.WhoCanUse newOwner = (Panel.WhoCanUse)payloads[1];
+                    Actor cardPlayer = payloads[0] as Actor;
+                    Panel panelToChange = payloads[1] as Panel;
+                    Panel.WhoCanUse newOwner = (Panel.WhoCanUse)payloads[2];
 
-                    panelToChange.Owner = newOwner;
+                    if (panelToChange.Unit == null)
+                    {
+                        panelToChange.Owner = newOwner;
+                    }
+                    else
+                    {
+                        Card.PotencyInfo potency = new Card.PotencyInfo();
+                        potency.potency = 10;
+                        potency.potencyStat = Card.DamageSource.Physical;
+                        EffectLookup.Lookup(EffectType.DealDamage, cardPlayer, panelToChange.Unit, potency);
+                    }
                 }
                 break;
             case EffectType.DrawCards:

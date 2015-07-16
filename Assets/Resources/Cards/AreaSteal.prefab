@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &122162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22409234}
+  - 114: {fileID: 11455600}
+  m_Layer: 5
+  m_Name: AreaSteal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &11455600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740735a45fe56c1478607ea7edd86e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardID: 0
+  characterRestriction: 0
+  jobRestriction: 0
+  cardName: Area Steal
+  manaCost: 3
+  cardText: Steals the closest column of area from the enemy.
+  cardKeywords: 
+  cardActions:
+  - useStoreTargets: 0
+    storeTargets: 0
+    targetID: 10
+    usePotency: 0
+    potencyInfo:
+      potency: 50
+      potencyStat: 0
+    effectID: 6
+  storeTargets: []
+--- !u!224 &22409234
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122162}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 0, y: -9.53674316e-07}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: .5, y: .5}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: characterRestriction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cardName
+      value: Area Steal
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cardText
+      value: Steals the closest column of area from the enemy.
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cardActions.Array.data[0].targetID
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cardActions.Array.data[0].usePotency
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cardActions.Array.data[0].effectID
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 122162}
+  m_IsPrefabParent: 1

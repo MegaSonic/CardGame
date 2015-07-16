@@ -194,10 +194,13 @@ public class TargetLookup : Extender {
                                 if (field.board[i, j].Owner == Panel.WhoCanUse.Enemy && !foundCol)
                                 {
                                     foundCol = true;
-                                    j = 0;
+                                    j = -1;
                                 }
                                 else if (foundCol)
+                                {
                                     yield return new BoardLocation(i, j);
+                                    if (j == 2) yield break;
+                                }
                             }
                         }
                     }
@@ -213,7 +216,10 @@ public class TargetLookup : Extender {
                                     j = 0;
                                 }
                                 else if (foundCol)
+                                {
                                     yield return new BoardLocation(i, j);
+                                    if (j == 2) yield break;
+                                }
                             }
                         }
                     }
