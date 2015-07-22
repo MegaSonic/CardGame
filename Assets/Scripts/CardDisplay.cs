@@ -140,38 +140,36 @@ public class CardDisplay : MonoBehaviour {
 
 		if (Input.GetMouseButtonUp (0)) {
 			// if clicked on a card
-			if (isDraggingCard)
-			{
-				Card clickedCard = cardToDrag.GetComponentInChildren<Card>();
-                if (battle.PlayCard(clickedCard))
+            if (isDraggingCard)
+            {
+                if (hit.collider.tag == "PlayingField")
                 {
-                    
+                    Card clickedCard = cardToDrag.GetComponentInChildren<Card>();
+                    if (battle.PlayCard(clickedCard))
+                    {
+
+                    }
+                    else
+                    {
+                        // return card to its original position
+                        ReturnCardToOriginalPos();
+                        //hit.transform.position = cardScreenPos;
+                        print("NOT ENOUGH MANA");
+                    }
                 }
                 else
                 {
                     // return card to its original position
-                    LeanTween.cancel(cardToDrag);
-                    LeanTween.moveX(cardToDrag, cardScreenPos.x, 0.2f);
-                    LeanTween.moveY(cardToDrag, cardScreenPos.y, 0.2f);
-                    //hit.transform.position = cardScreenPos;
-                    print("NOT ENOUGH MANA");
+                    ReturnCardToOriginalPos();
                 }
-
-                cardToDrag = null;
-                isDraggingCard = false;
-			}
+            }             
 		}
 
         if (Input.GetMouseButtonDown(1))
         {
             if (isDraggingCard)
             {
-                // return card to its original position
-                LeanTween.cancel(cardToDrag);
-                LeanTween.moveX(cardToDrag, cardScreenPos.x, 0.2f);
-                LeanTween.moveY(cardToDrag, cardScreenPos.y, 0.2f);
-                cardToDrag = null;
-                isDraggingCard = false;
+                ReturnCardToOriginalPos();
             }
         }
 
@@ -191,4 +189,13 @@ public class CardDisplay : MonoBehaviour {
         }
         */	
 	}
+
+    private void ReturnCardToOriginalPos()
+    {
+        LeanTween.cancel(cardToDrag);
+        LeanTween.moveX(cardToDrag, cardScreenPos.x, 0.2f);
+        LeanTween.moveY(cardToDrag, cardScreenPos.y, 0.2f);
+        cardToDrag = null;
+        isDraggingCard = false;
+    }
 }
