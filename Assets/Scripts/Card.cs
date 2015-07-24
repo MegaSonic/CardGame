@@ -4,6 +4,10 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+public enum Variable
+{
+}
+
 public class Card : Extender {
 
     private TargetLookup targetLookup;
@@ -48,9 +52,15 @@ public class Card : Extender {
 	public string cardName;
 
 	/// <summary>
-	/// The mana cost.
+	/// The regular mana cost of the card, unmodified by effects.
 	/// </summary>
 	public int manaCost;
+    
+    /// <summary>
+    /// The current mana cost of the card.
+    /// </summary>
+    [HideInInspector]
+    public int currentManaCost;
 
 	/// <summary>
 	/// The rules text on this card.
@@ -73,6 +83,12 @@ public class Card : Extender {
 	/// </summary>
 	[HideInInspector]
 	public List<Actor> storeTargets;
+
+    public bool requireManualTarget;
+    public bool additionalCost;
+
+    [HideInInspector]
+    public ManualTarget manualTarget;
 	
 	// Update is called once per frame
 	void Update () {
@@ -175,25 +191,50 @@ public class Card : Extender {
 	}
 }
 
-/*
+
 [CustomEditor( typeof(Card) )]
 public class CardInspector : Editor
 {
 	public override void OnInspectorGUI()
 	{
-		base.OnInspectorGUI ();
+        Card card = (Card) target;
 
-		Card card = (Card)target;
+        EditorGUILayout.TextField("Card Name", card.cardName);
+        EditorGUILayout.IntField("Mana Cost", card.manaCost);
+        EditorGUILayout.Space();
 
-		foreach (Card.CardAction c in card.cardActions) {
-			c.displayPotency = EditorGUILayout.Toggle ("Potency?", c.displayPotency);
-			if (c.displayPotency) {
-				EditorGUILayout.BeginVertical ();
-				EditorGUILayout.IntField ("Potency", c.potencyInfo.potency);
-				EditorGUILayout.EnumPopup ("Potency Stat", c.potencyInfo.potencyStat);
-				EditorGUILayout.EndVertical ();
-			}
-		}
+        EditorGUILayout.IntField("Card ID", card.cardID);
+        EditorGUILayout.EnumPopup("Char Restriction", card.characterRestriction);
+        EditorGUILayout.EnumPopup("Job Restriction", card.jobRestriction);
+        EditorGUILayout.Space();
+
+        EditorGUILayout.LabelField("Card Text");
+        card.cardText = EditorGUILayout.TextField(card.cardText, GUILayout.MaxHeight(75));
+
+        EditorGUILayout.Space();
+
+        card.requireManualTarget = EditorGUILayout.Toggle("Require Target?", card.requireManualTarget);
+        if (card.requireManualTarget)
+        {
+            EditorGUILayout.BeginVertical();
+            card.manualTarget = (ManualTarget) EditorGUILayout.EnumPopup(card.manualTarget);
+            EditorGUILayout.EndVertical();
+        }
+        
+        card.additionalCost = EditorGUILayout.Toggle("Additional Cost?", card.additionalCost);
+        if (card.additionalCost)
+        {
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.LabelField("PLACEHOLDER");
+            EditorGUILayout.EndVertical();
+        }
+
+        EditorGUILayout.Space();
+
+        SerializedProperty actions = serializedObject.FindProperty("cardActions");
+        EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(actions, true);
+        if (EditorGUI.EndChangeCheck())
+            serializedObject.ApplyModifiedProperties();
 	}
 }
-*/

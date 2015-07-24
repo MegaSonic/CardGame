@@ -17,6 +17,16 @@ public enum TargetType
     FirstColumnWithOpponentPanel = 10
 }
 
+public enum ManualTarget
+{
+    Ally = 1,
+    Enemy = 2,
+    Actor = 3,
+    Panel = 4,
+    DamagedEnemy = 5,
+    DamagedAlly = 6
+}
+
 /// <summary>
 /// A static class that handles all the different targetting methods for various cards.
 /// </summary>

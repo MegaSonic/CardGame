@@ -32,6 +32,7 @@ MonoBehaviour:
   jobRestriction: 0
   cardName: Area Steal
   manaCost: 3
+  currentManaCost: 0
   cardText: Steals the closest column of area from the enemy.
   cardKeywords: 
   cardActions:
@@ -44,6 +45,9 @@ MonoBehaviour:
       potencyStat: 0
     effectID: 6
   storeTargets: []
+  requireManualTarget: 0
+  additionalCost: 0
+  manualTarget: 1
 --- !u!224 &22409234
 RectTransform:
   m_ObjectHideFlags: 1
@@ -91,6 +95,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: cardActions.Array.data[0].effectID
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: requireManualTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: additionalCost
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
