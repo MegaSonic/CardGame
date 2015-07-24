@@ -199,13 +199,13 @@ public class CardInspector : Editor
 	{
         Card card = (Card) target;
 
-        EditorGUILayout.TextField("Card Name", card.cardName);
-        EditorGUILayout.IntField("Mana Cost", card.manaCost);
+        card.cardName = EditorGUILayout.TextField("Card Name", card.cardName);
+        card.manaCost = EditorGUILayout.IntField("Mana Cost", card.manaCost);
         EditorGUILayout.Space();
 
-        EditorGUILayout.IntField("Card ID", card.cardID);
-        EditorGUILayout.EnumPopup("Char Restriction", card.characterRestriction);
-        EditorGUILayout.EnumPopup("Job Restriction", card.jobRestriction);
+        card.cardID = EditorGUILayout.IntField("Card ID", card.cardID);
+        card.characterRestriction = (PlayerType) EditorGUILayout.EnumPopup("Char Restriction", card.characterRestriction);
+        card.jobRestriction = (PlayerJob) EditorGUILayout.EnumPopup("Job Restriction", card.jobRestriction);
         EditorGUILayout.Space();
 
         EditorGUILayout.LabelField("Card Text");
