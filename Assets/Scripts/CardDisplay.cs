@@ -142,12 +142,13 @@ public class CardDisplay : MonoBehaviour {
 			// if clicked on a card
             if (isDraggingCard)
             {
-                if (hit.collider.tag == "PlayingField")
+                if (hit.collider != null && hit.collider.tag == "PlayingField")
                 {
                     Card clickedCard = cardToDrag.GetComponentInChildren<Card>();
                     if (battle.PlayCard(clickedCard))
                     {
-
+                        cardToDrag = null;
+                        isDraggingCard = false;
                     }
                     else
                     {
