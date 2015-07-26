@@ -19,6 +19,7 @@ public enum TargetType
 
 public enum ManualTarget
 {
+    Player = 0,
     Ally = 1,
     Enemy = 2,
     Actor = 3,

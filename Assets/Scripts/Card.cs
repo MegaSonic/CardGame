@@ -87,9 +87,10 @@ public class Card : Extender {
     public bool requireManualTarget;
     public bool additionalCost;
 
-    [HideInInspector]
     public ManualTarget manualTarget;
-	
+
+    public BoardLocation locTarget;
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -108,16 +109,27 @@ public class Card : Extender {
             {
                 case EffectType.DealDamage:
                     {
-                        List<BoardLocation> locations = new List<BoardLocation>();
-                        foreach (BoardLocation location in TargetLookup.Lookup(c.targetID, battle.GetCurrentActor()))
+                        if (!c.useManualTarget)
                         {
-                            locations.Add(location);
+                            List<BoardLocation> locations = new List<BoardLocation>();
+                            foreach (BoardLocation location in TargetLookup.Lookup(c.targetID, battle.GetCurrentActor()))
+                            {
+                                locations.Add(location);
+                                foreach (Actor a in TargetLookup.GetActorsFromLocations(locations))
+                                {
+                                    EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, c.potencyInfo);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            List<BoardLocation> locations = new List<BoardLocation>();
+                            locations.Add(locTarget);
                             foreach (Actor a in TargetLookup.GetActorsFromLocations(locations))
                             {
                                 EffectLookup.Lookup(c.effectID, battle.GetCurrentActor(), a, c.potencyInfo);
                             }
                         }
-                        
                     }
                     break;
                 case EffectType.ChangePanelOwner:
@@ -167,6 +179,11 @@ public class Card : Extender {
 		/// </summary>
 		public bool storeTargets;
 
+        /// <summary>
+        /// Should this action use the manual target?
+        /// </summary>
+        public bool useManualTarget;
+
 		/// <summary>
 		/// The target ID type.
 		/// </summary>
@@ -186,9 +203,12 @@ public class Card : Extender {
 		/// Should this action also apply an effect to the targets?
 		/// </summary>
 		public EffectType effectID;
-
-
 	}
+
+    public void SetTarget(BoardLocation loc)
+    {
+        locTarget = loc;
+    }
 }
 
 
@@ -237,4 +257,6 @@ public class CardInspector : Editor
         if (EditorGUI.EndChangeCheck())
             serializedObject.ApplyModifiedProperties();
 	}
+
+    
 }

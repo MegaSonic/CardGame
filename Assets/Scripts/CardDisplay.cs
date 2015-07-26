@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class CardDisplay : MonoBehaviour
 {
+    public Transform crosshair;
+
 
     private RaycastHit2D hit;
 
@@ -28,6 +30,9 @@ public class CardDisplay : MonoBehaviour
     private Battle battle;
     private bool isDraggingCard = false;
     private GameObject cardToDrag;
+
+    private bool targetMode = false;
+    private ManualTarget targetRequired;
 
     /// <summary>
     /// Updates the UI to match given card
@@ -103,110 +108,176 @@ public class CardDisplay : MonoBehaviour
             }
         }
 
-        // cast a raycast to where the mouse is pointing
-        hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-        if (cardHit != null && !Input.GetMouseButton(0))
+        if (targetMode)
         {
-            if (cardDisplayed == null && !LeanTween.isTweening(cardHit.gameObject))
+            crosshair.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+            if (fieldHit == null)
             {
-                // make the card display visible
-                this.gameObject.transform.position = new Vector3(cardHit.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-                canvas.enabled = true;
-                cardDisplayed = cardHit.gameObject;
-                cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
-                UpdateDisplay(cardHit.gameObject);
+                targetMode = false;
+                crosshair.position = new Vector3(1000f, 1000f, 0f);
+                return;
             }
-            else if (cardDisplayed != null && cardHit.gameObject != cardDisplayed)
+
+            if (Input.GetMouseButtonUp(0))
             {
-                // make the card display visible and make the card invisible
-                this.gameObject.transform.position = new Vector3(cardHit.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-                canvas.enabled = true;
-                cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
-                cardDisplayed = cardHit.gameObject;
-                cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
-                UpdateDisplay(cardHit.gameObject);
+                if (panelHit != null)
+                {
+                    Panel panel = panelHit.gameObject.GetComponent<Panel>();
+                    BoardLocation newLoc = new BoardLocation(panel.x, panel.y);
+
+                    Debug.Log("Found panel!");
+
+                    if (panel.Unit == null)
+                    {
+                        Debug.Log("There's no unit on that panel!");
+                        if (targetRequired == ManualTarget.Actor || targetRequired == ManualTarget.Ally || targetRequired == ManualTarget.Enemy || targetRequired == ManualTarget.DamagedAlly || targetRequired == ManualTarget.DamagedEnemy || targetRequired == ManualTarget.Player)
+                        {
+                            Debug.Log("Not a valid target!");
+                            return;
+                        }
+
+                        
+                    }
+                    else
+                    {
+                        Debug.Log("Found a unit on that panel!");
+                        cardToDrag.GetComponentInChildren<Card>().SetTarget(newLoc);
+                        if (battle.PlayCard(cardToDrag.GetComponentInChildren<Card>()))
+                        {
+                            cardToDrag = null;
+                            isDraggingCard = false;
+                            crosshair.position = new Vector3(1000f, 1000f, 0f);
+                            targetMode = false;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not a valid target");
+                    return;
+                }
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                crosshair.position = new Vector3(1000f, 1000f, 0f);
+                targetMode = false;
+                ReturnCardToOriginalPos();
             }
         }
         else
         {
-            if (cardDisplayed != null)
+            if (cardHit != null && !Input.GetMouseButton(0))
             {
-                // hide the card display
-                canvas.enabled = false;
-                cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
-                cardDisplayed = null;
-            }
-        }
-
-        // check for mouse click
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-            draggingOffset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-
-            // if clicked on a card
-            if (cardHit != null)
-            {
-                // keep track of card's original position
-                cardScreenPos = cardHit.position;
-                cardToDrag = cardHit.gameObject;
-                isDraggingCard = true;
-                cardDisplayed = null;
-                canvas.enabled = false;
-            }
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-            Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint); // + draggingOffset;
-
-            // if clicked on a card
-            if (isDraggingCard)
-            {
-                // move the card's position
-
-                LeanTween.moveX(cardToDrag, curPosition.x, 0.02f);
-                LeanTween.moveY(cardToDrag.gameObject, curPosition.y, 0.02f);
-            }
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            // if clicked on a card
-            if (isDraggingCard)
-            {
-                if (fieldHit != null)
+                if (cardDisplayed == null && !LeanTween.isTweening(cardHit.gameObject))
                 {
-                    Card clickedCard = cardToDrag.GetComponentInChildren<Card>();
-                    if (battle.PlayCard(clickedCard))
+                    // make the card display visible
+                    this.gameObject.transform.position = new Vector3(cardHit.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+                    canvas.enabled = true;
+                    cardDisplayed = cardHit.gameObject;
+                    cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
+                    UpdateDisplay(cardHit.gameObject);
+                }
+                else if (cardDisplayed != null && cardHit.gameObject != cardDisplayed)
+                {
+                    // make the card display visible and make the card invisible
+                    this.gameObject.transform.position = new Vector3(cardHit.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+                    canvas.enabled = true;
+                    cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
+                    cardDisplayed = cardHit.gameObject;
+                    cardDisplayed.GetComponent<CardUI>().SetElementsActive(false);
+                    UpdateDisplay(cardHit.gameObject);
+                }
+            }
+            else
+            {
+                if (cardDisplayed != null)
+                {
+                    // hide the card display
+                    canvas.enabled = false;
+                    cardDisplayed.GetComponent<CardUI>().SetElementsActive(true);
+                    cardDisplayed = null;
+                }
+            }
+
+            // check for mouse click
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+                draggingOffset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+
+                // if clicked on a card
+                if (cardHit != null)
+                {
+                    // keep track of card's original position
+                    cardScreenPos = cardHit.position;
+                    cardToDrag = cardHit.gameObject;
+                    isDraggingCard = true;
+                    cardDisplayed = null;
+                    canvas.enabled = false;
+                }
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+                Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint); // + draggingOffset;
+
+                if (fieldHit == null && isDraggingCard)
+                {
+                    // move the card's position
+                    LeanTween.moveX(cardToDrag, curPosition.x, 0.02f);
+                    LeanTween.moveY(cardToDrag.gameObject, curPosition.y, 0.02f);
+                }
+
+                if (fieldHit != null && isDraggingCard && cardToDrag.GetComponentInChildren<Card>().requireManualTarget)
+                {
+                    targetMode = true;
+                    targetRequired = cardToDrag.GetComponentInChildren<Card>().manualTarget;
+                }
+                else if (fieldHit != null && isDraggingCard && !cardToDrag.GetComponentInChildren<Card>().requireManualTarget)
+                {
+                    LeanTween.moveX(cardToDrag, curPosition.x, 0.02f);
+                    LeanTween.moveY(cardToDrag.gameObject, curPosition.y, 0.02f);
+                }
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                // if clicked on a card
+                if (isDraggingCard)
+                {
+                    if (fieldHit != null)
                     {
-                        cardToDrag = null;
-                        isDraggingCard = false;
+                        Card clickedCard = cardToDrag.GetComponentInChildren<Card>();
+                        if (battle.PlayCard(clickedCard))
+                        {
+                            cardToDrag = null;
+                            isDraggingCard = false;
+                        }
+                        else
+                        {
+                            // return card to its original position
+                            ReturnCardToOriginalPos();
+                            //hit.transform.position = cardScreenPos;
+                            print("NOT ENOUGH MANA");
+                        }
                     }
                     else
                     {
                         // return card to its original position
                         ReturnCardToOriginalPos();
-                        //hit.transform.position = cardScreenPos;
-                        print("NOT ENOUGH MANA");
                     }
                 }
-                else
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (isDraggingCard)
                 {
-                    // return card to its original position
                     ReturnCardToOriginalPos();
                 }
-            }
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (isDraggingCard)
-            {
-                ReturnCardToOriginalPos();
             }
         }
 

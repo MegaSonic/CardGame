@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Hand : Extender {
 
+    public GameObject nextCardToDraw;
+
     [SerializeField]
     private Transform spawnPoint;
     [SerializeField]
