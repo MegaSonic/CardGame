@@ -11,6 +11,7 @@ TagManager:
   - ManaCost
   - CardInfo
   - PlayingField
+  - Panel
   layers:
   - Default
   - TransparentFX
