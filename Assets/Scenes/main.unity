@@ -710,25 +710,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 316892651}
   animations:
-  - name: walk
-    fps: 8
-    frames:
-    - {fileID: 21300000, guid: ba44f3ba0033dd74ba4beb50658d0844, type: 3}
-    - {fileID: 21300002, guid: ba44f3ba0033dd74ba4beb50658d0844, type: 3}
-    sequenceCode: 
-    cue: 
-    triggers: []
-  - name: chant
-    fps: 8
-    frames:
-    - {fileID: 21300012, guid: ba44f3ba0033dd74ba4beb50658d0844, type: 3}
-    - {fileID: 21300014, guid: ba44f3ba0033dd74ba4beb50658d0844, type: 3}
-    sequenceCode: 
-    cue: 
-    triggers: []
+  - {fileID: 11400000, guid: a7c8dec4a681fea479cc9c065107bc2b, type: 2}
+  - {fileID: 11400000, guid: 8e2dd6b95f304c54c9aa5b3c2db4cc0c, type: 2}
   loop: 0
   speedMultiplier: 1
-  playAnimationOnStart: chant
+  playAnimationOnStart: walk
 --- !u!4 &1563344894
 Transform:
   m_ObjectHideFlags: 0

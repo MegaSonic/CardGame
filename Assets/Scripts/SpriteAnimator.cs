@@ -15,18 +15,7 @@ public class SpriteAnimator : MonoBehaviour
         public int frame;
     }
 
-    [System.Serializable]
-    public class Animation
-    {
-        public string name;
-        public int fps;
-        public Sprite[] frames;
-
-        public string sequenceCode;
-        public string cue;
-
-        public AnimationTrigger[] triggers;
-    }
+    
 
     // sequence code format:
     // startFrame-endFrame:time(chance)
@@ -42,10 +31,10 @@ public class SpriteAnimator : MonoBehaviour
     // Idle animation with options: 0-59, 60-69, 10-59, 0-59/70-129/130-149
 
     public SpriteRenderer spriteRenderer;
-    public Animation[] animations;
+    public AnimationClip[] animations;
 
     public bool playing { get; private set; }
-    public Animation currentAnimation { get; private set; }
+    public AnimationClip currentAnimation { get; private set; }
     public int currentFrame { get; private set; }
     [HideInInspector]
     public bool loop;
@@ -72,7 +61,7 @@ public class SpriteAnimator : MonoBehaviour
 
     public void Play(string name, bool loop = true, int startFrame = 0)
     {
-        Animation animation = GetAnimation(name);
+        AnimationClip animation = GetAnimation(name);
         if (animation != null)
         {
             if (animation != currentAnimation)
@@ -88,7 +77,7 @@ public class SpriteAnimator : MonoBehaviour
 
     public void ForcePlay(string name, bool loop = true, int startFrame = 0)
     {
-        Animation animation = GetAnimation(name);
+        AnimationClip animation = GetAnimation(name);
         if (animation != null)
         {
             this.loop = loop;
@@ -123,9 +112,9 @@ public class SpriteAnimator : MonoBehaviour
         return (currentAnimation != null && currentAnimation.name == name);
     }
 
-    public Animation GetAnimation(string name)
+    public AnimationClip GetAnimation(string name)
     {
-        foreach (Animation animation in animations)
+        foreach (AnimationClip animation in animations)
         {
             if (animation.name == name)
             {
@@ -141,7 +130,7 @@ public class SpriteAnimator : MonoBehaviour
         ForcePlay(animationName, false);
     }
 
-    IEnumerator PlayAnimation(Animation animation)
+    IEnumerator PlayAnimation(AnimationClip animation)
     {
         playing = true;
 
@@ -324,7 +313,7 @@ public class SpriteAnimator : MonoBehaviour
         playing = false;
     }
 
-    void NextFrame(Animation animation)
+    void NextFrame(AnimationClip animation)
     {
         looped = false;
         currentFrame++;
